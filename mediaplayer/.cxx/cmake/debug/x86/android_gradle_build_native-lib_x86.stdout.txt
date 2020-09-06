@@ -1,0 +1,2 @@
+ninja: Entering directory `/Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86'
+ninja: no work to do.

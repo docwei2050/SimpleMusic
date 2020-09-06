@@ -1,0 +1,22 @@
+{
+  "buildFiles": [
+    "/Users/docwei/Desktop/android-ndk-r15c/build/cmake/android.toolchain.cmake",
+    "/Users/docwei/Downloads/SimpleMusic/mediaplayer/CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86\" clean"
+  ],
+  "buildTargetsCommand": "/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "native-lib-Debug-x86": {
+      "artifactName": "native-lib",
+      "buildCommand": "/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86\" native-lib",
+      "abi": "x86",
+      "output": "/Users/docwei/Downloads/SimpleMusic/mediaplayer/build/intermediates/cmake/debug/obj/x86/libnative-lib.so",
+      "runtimeFiles": [
+        "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/gnu-libstdc++/4.9/libs/x86/libgnustl_static.a",
+        "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/gnu-libstdc++/4.9/libs/x86/libgnustl_static.a"
+      ]
+    }
+  }
+}

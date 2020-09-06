@@ -1,0 +1,134 @@
+[
+  {
+    "level": "INFO",
+    "message": "Start JSON generation. Platform version: 21 min SDK version: armeabi-v7a",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "Trying to locate CMake in local SDK repository.",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "- CMake found in SDK at \u0027/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404\u0027 had version \u00273.10.2\u0027",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "rebuilding JSON /Users/docwei/Downloads/SimpleMusic/app/.cxx/cmake/debug/armeabi-v7a/android_gradle_build.json due to:",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "- expected json /Users/docwei/Downloads/SimpleMusic/app/.cxx/cmake/debug/armeabi-v7a/android_gradle_build.json file is not present, will remove stale json folder",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "- missing previous command file /Users/docwei/Downloads/SimpleMusic/app/.cxx/cmake/debug/armeabi-v7a/build_command.txt, will remove stale json folder",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "- command changed from previous, will remove stale json folder",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "removing stale contents from \u0027/Users/docwei/Downloads/SimpleMusic/app/.cxx/cmake/debug/armeabi-v7a\u0027",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "created folder \u0027/Users/docwei/Downloads/SimpleMusic/app/.cxx/cmake/debug/armeabi-v7a\u0027",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "executing cmake Executable : /Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/cmake\narguments : \n-H/Users/docwei/Downloads/SimpleMusic/app\n-DCMAKE_CXX_FLAGS\u003d-frtti -fexceptions\n-DCMAKE_FIND_ROOT_PATH\u003d/Users/docwei/Downloads/SimpleMusic/app/.cxx/cmake/debug/prefab/armeabi-v7a/prefab\n-DCMAKE_BUILD_TYPE\u003dDebug\n-DCMAKE_TOOLCHAIN_FILE\u003d/Users/docwei/software/android/sdk/ndk/android-ndk-r21d/build/cmake/android.toolchain.cmake\n-DANDROID_ABI\u003darmeabi-v7a\n-DANDROID_NDK\u003d/Users/docwei/software/android/sdk/ndk/android-ndk-r21d\n-DANDROID_PLATFORM\u003dandroid-21\n-DCMAKE_ANDROID_ARCH_ABI\u003darmeabi-v7a\n-DCMAKE_ANDROID_NDK\u003d/Users/docwei/software/android/sdk/ndk/android-ndk-r21d\n-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON\n-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/Users/docwei/Downloads/SimpleMusic/app/build/intermediates/cmake/debug/obj/armeabi-v7a\n-DCMAKE_MAKE_PROGRAM\u003d/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja\n-DCMAKE_SYSTEM_NAME\u003dAndroid\n-DCMAKE_SYSTEM_VERSION\u003d21\n-B/Users/docwei/Downloads/SimpleMusic/app/.cxx/cmake/debug/armeabi-v7a\n-GNinja\njvmArgs : \n\n",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "\n",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "[\u003d\u003d \"CMake Server\" \u003d\u003d[\n",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"supportedProtocolVersions\":[{\"isExperimental\":true,\"major\":1,\"minor\":1}],\"type\":\"hello\"}\n",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "]\u003d\u003d \"CMake Server\" \u003d\u003d]\n",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\n  \"type\": \"handshake\",\n  \"cookie\": \"gradle-cmake-cookie\",\n  \"protocolVersion\": {\n    \"isExperimental\": true,\n    \"major\": 1,\n    \"minor\": 1\n  },\n  \"sourceDirectory\": \"/Users/docwei/Downloads/SimpleMusic/app\",\n  \"buildDirectory\": \"/Users/docwei/Downloads/SimpleMusic/app/.cxx/cmake/debug/armeabi-v7a\",\n  \"generator\": \"Ninja\"\n}\n",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"gradle-cmake-cookie\",\"inReplyTo\":\"handshake\",\"type\":\"reply\"}\n",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\n  \"type\": \"configure\",\n  \"cacheArguments\": [\n    \"\",\n    \"-DCMAKE_CXX_FLAGS\\u003d-frtti -fexceptions\",\n    \"-DCMAKE_FIND_ROOT_PATH\\u003d/Users/docwei/Downloads/SimpleMusic/app/.cxx/cmake/debug/prefab/armeabi-v7a/prefab\",\n    \"-DCMAKE_BUILD_TYPE\\u003dDebug\",\n    \"-DCMAKE_TOOLCHAIN_FILE\\u003d/Users/docwei/software/android/sdk/ndk/android-ndk-r21d/build/cmake/android.toolchain.cmake\",\n    \"-DANDROID_ABI\\u003darmeabi-v7a\",\n    \"-DANDROID_NDK\\u003d/Users/docwei/software/android/sdk/ndk/android-ndk-r21d\",\n    \"-DANDROID_PLATFORM\\u003dandroid-21\",\n    \"-DCMAKE_ANDROID_ARCH_ABI\\u003darmeabi-v7a\",\n    \"-DCMAKE_ANDROID_NDK\\u003d/Users/docwei/software/android/sdk/ndk/android-ndk-r21d\",\n    \"-DCMAKE_EXPORT_COMPILE_COMMANDS\\u003dON\",\n    \"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\\u003d/Users/docwei/Downloads/SimpleMusic/app/build/intermediates/cmake/debug/obj/armeabi-v7a\",\n    \"-DCMAKE_MAKE_PROGRAM\\u003d/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja\",\n    \"-DCMAKE_SYSTEM_NAME\\u003dAndroid\",\n    \"-DCMAKE_SYSTEM_VERSION\\u003d21\"\n  ]\n}\n",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"message\":\"CMake Error: The source directory \\\"/Users/docwei/Downloads/SimpleMusic/app\\\" does not appear to contain CMakeLists.txt.\\nSpecify --help for usage, or press the help button on the CMake GUI.\",\"title\":\"Error\",\"type\":\"message\"}\n",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "ERROR",
+    "message": "CMake Error: The source directory \"/Users/docwei/Downloads/SimpleMusic/app\" does not appear to contain CMakeLists.txt.\nSpecify --help for usage, or press the help button on the CMake GUI.",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"errorMessage\":\"Configuration failed.\",\"inReplyTo\":\"configure\",\"type\":\"error\"}\n",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "ERROR",
+    "message": "Configuration failed.",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  },
+  {
+    "level": "INFO",
+    "message": "JSON generation completed with problem. Exception: com.android.ide.common.process.ProcessException: Error configuring CMake server (/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin).\r\nCMake Error: The source directory \"/Users/docwei/Downloads/SimpleMusic/app\" does not appear to contain CMakeLists.txt.\nSpecify --help for usage, or press the help button on the CMake GUI.\n",
+    "file": "/Users/docwei/Downloads/SimpleMusic/app/CMakeLists.txt",
+    "tag": "debug|armeabi-v7a"
+  }
+]

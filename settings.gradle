@@ -1,0 +1,3 @@
+include ':mediaplayer'
+include ':app'
+rootProject.name = "SimpleMusic"
