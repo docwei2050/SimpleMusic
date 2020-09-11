@@ -16,7 +16,5 @@ public class Demo {
         System.loadLibrary("swscale");
     }
 
-    public native static String stringFromJNI();
-    public native static void testFfmpeg();
 
 }

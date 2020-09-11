@@ -1,36 +1,37 @@
 #include <jni.h>
 #include <string>
-#include <android/log.h>
-extern "C" {
-   #include <libavformat/avformat.h>
-}
+#include <stddef.h>
+#include "FFmpegDecode.h"
 
-#define LOGI(FORMAT, ...) __android_log_print(ANDROID_LOG_INFO,"docwei",FORMAT,##__VA_ARGS__);
-extern "C" JNIEXPORT jstring JNICALL
-Java_com_docwei_mediaplayer_Demo_stringFromJNI(
-        JNIEnv *env,
-        jobject /* this */) {
-    std::string hello = "Hello from C++";
-    return env->NewStringUTF(hello.c_str());
+extern "C" {
+#include <libavformat/avformat.h>
 }
+JavaVM *javaVm = NULL;
+CallJava *callJava = NULL;
+FFmpegDecode *fFmpegDecode = NULL;
+
+
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_docwei_mediaplayer_Demo_testFfmpeg(JNIEnv *env, jclass clazz) {
-    av_register_all();
-    AVCodec *c_temp = av_codec_next(NULL);
-    while (c_temp != NULL) {
-        switch (c_temp->type) {
-            case AVMEDIA_TYPE_VIDEO:
-                LOGI("[Video]:%s", c_temp->name);
-                break;
-            case AVMEDIA_TYPE_AUDIO:
-                LOGI("[Audio]:%s", c_temp->name);
-                break;
-            default:
-                LOGI("[Other]:%s", c_temp->name);
-                break;
+Java_com_docwei_mediaplayer_MusicPlayer_n_1parpared(JNIEnv *env, jobject thiz, jstring source) {
+    const char *url = env->GetStringUTFChars(source, 0);
+    if (fFmpegDecode == NULL) {
+        if (callJava == NULL) {
+            callJava = new CallJava(javaVm, env, &thiz);
         }
-        c_temp = c_temp->next;
+        fFmpegDecode = new FFmpegDecode(callJava, url);
+        fFmpegDecode->prepared();
     }
+    // env->ReleaseStringUTFChars(source, url);
+}
 
+extern "C"
+JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
+    jint result = -1;
+    javaVm = vm;
+    JNIEnv *env;
+    if (vm->GetEnv((void **) &env, JNI_VERSION_1_6) != JNI_OK) {
+        return result;
+    }
+    return JNI_VERSION_1_6;
 }

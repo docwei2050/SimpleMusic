@@ -3,19 +3,12 @@ set(CMAKE_HOST_SYSTEM_NAME "Darwin")
 set(CMAKE_HOST_SYSTEM_VERSION "19.6.0")
 set(CMAKE_HOST_SYSTEM_PROCESSOR "x86_64")
 
-include("/Users/docwei/Desktop/android-ndk-r15c/build/cmake/android.toolchain.cmake")
+include("/Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/release/x86/pre-ndk-r15-wrapper-android.toolchain.cmake")
 
-set(CMAKE_SYSTEM "Android-21")
+set(CMAKE_SYSTEM "Android-1")
 set(CMAKE_SYSTEM_NAME "Android")
-set(CMAKE_SYSTEM_VERSION "21")
+set(CMAKE_SYSTEM_VERSION "1")
 set(CMAKE_SYSTEM_PROCESSOR "i686")
-
-set(CMAKE_ANDROID_NDK "/Users/docwei/Desktop/android-ndk-r15c")
-set(CMAKE_ANDROID_STANDALONE_TOOLCHAIN "")
-set(CMAKE_ANDROID_ARCH "x86")
-set(CMAKE_ANDROID_ARCH_ABI "x86")
-set(CMAKE_ANDROID_ARCH_HEADER_TRIPLE "i686-linux-android")
-set(CMAKE_ANDROID_NDK_DEPRECATED_HEADERS "0")
 
 set(CMAKE_CROSSCOMPILING "TRUE")
 

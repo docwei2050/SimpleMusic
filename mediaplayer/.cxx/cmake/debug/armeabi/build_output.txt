@@ -1,2 +1,0 @@
-this var key = .
-Configuring done

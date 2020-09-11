@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.4.1)
 
 #导入头文件
 include_directories(src/main/cpp/includes)
+
 #添加动态库
 add_library(avcodec SHARED IMPORTED)
 #设置动态库的路径
@@ -56,18 +57,16 @@ set_target_properties(swscale PROPERTIES IMPORTED_LOCATION
 add_library(
         native-lib
         SHARED
-        src/main/cpp/native-lib.cpp)
+        src/main/cpp/native-lib.cpp
+        src/main/cpp/CallJava.cpp
+        src/main/cpp/FFmpegDecode.cpp
+        src/main/cpp/SimpleAudio.cpp)
 
 
-find_library(
-        log-lib
-        log)
-SET(USER_KEY, "Hello World")
-MESSAGE(STATUS "this var key = ${USER_KEY}.")
 
 target_link_libraries(
         native-lib
-        ${log-lib}
+        log
         avcodec
         avdevice
         avfilter

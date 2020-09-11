@@ -5,9 +5,9 @@
     "environmentVariables": []
   },
   "cmake": {
-    "cmakeArtifactsBaseFolder": "/Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86",
-    "cmakeServerLogFile": "/Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/cmake_server_log.txt",
-    "cmakeWrappingBaseFolder": "/Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cxx/debug/x86",
+    "cmakeArtifactsBaseFolder": "/Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86",
+    "cmakeServerLogFile": "/Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/cmake_server_log.txt",
+    "cmakeWrappingBaseFolder": "/Users/docwei/SimpleMusic/mediaplayer/.cxx/cxx/debug/x86",
     "effectiveConfiguration": {
       "name": "traditional-android-studio-cmake-environment",
       "description": "Composite reified CMakeSettings configuration",
@@ -15,13 +15,13 @@
       "inheritEnvironments": [
         "ndk"
       ],
-      "buildRoot": "/Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86",
-      "cmakeToolchain": "/Users/docwei/Desktop/android-ndk-r15c/build/cmake/android.toolchain.cmake",
+      "buildRoot": "/Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86",
+      "cmakeToolchain": "/Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/pre-ndk-r15-wrapper-android.toolchain.cmake",
       "cmakeExecutable": "/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/cmake",
       "variables": [
         {
           "name": "CMAKE_FIND_ROOT_PATH",
-          "value": "/Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/prefab/x86/prefab"
+          "value": "/Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/prefab/x86/prefab"
         },
         {
           "name": "CMAKE_BUILD_TYPE",
@@ -29,7 +29,7 @@
         },
         {
           "name": "CMAKE_TOOLCHAIN_FILE",
-          "value": "/Users/docwei/Desktop/android-ndk-r15c/build/cmake/android.toolchain.cmake"
+          "value": "/Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/pre-ndk-r15-wrapper-android.toolchain.cmake"
         },
         {
           "name": "ANDROID_ABI",
@@ -37,7 +37,7 @@
         },
         {
           "name": "ANDROID_NDK",
-          "value": "/Users/docwei/Desktop/android-ndk-r15c"
+          "value": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b"
         },
         {
           "name": "ANDROID_PLATFORM",
@@ -49,7 +49,7 @@
         },
         {
           "name": "CMAKE_ANDROID_NDK",
-          "value": "/Users/docwei/Desktop/android-ndk-r15c"
+          "value": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b"
         },
         {
           "name": "CMAKE_EXPORT_COMPILE_COMMANDS",
@@ -57,7 +57,7 @@
         },
         {
           "name": "CMAKE_LIBRARY_OUTPUT_DIRECTORY",
-          "value": "/Users/docwei/Downloads/SimpleMusic/mediaplayer/build/intermediates/cmake/debug/obj/x86"
+          "value": "/Users/docwei/SimpleMusic/mediaplayer/build/intermediates/cmake/debug/obj/x86"
         },
         {
           "name": "CMAKE_MAKE_PROGRAM",
@@ -74,14 +74,14 @@
       ]
     }
   },
-  "cxxBuildFolder": "/Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86",
+  "cxxBuildFolder": "/Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86",
   "info": {
     "abi": "X86",
-    "bitness": 64,
+    "bitness": 32,
     "deprecated": false,
     "default": true
   },
-  "originalCxxBuildFolder": "/Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86",
+  "originalCxxBuildFolder": "/Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86",
   "variant": {
     "buildSystemArgumentList": [],
     "buildTargetSet": [],
@@ -96,33 +96,33 @@
         "minimumCmakeVersion": "3.10.2",
         "ninjaExe": "/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja"
       },
-      "cmakeToolchainFile": "/Users/docwei/Desktop/android-ndk-r15c/build/cmake/android.toolchain.cmake",
-      "cxxFolder": "/Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx",
+      "cmakeToolchainFile": "/Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/pre-ndk-r15-wrapper-android.toolchain.cmake",
+      "cxxFolder": "/Users/docwei/SimpleMusic/mediaplayer/.cxx",
       "gradleModulePathName": ":mediaplayer",
-      "intermediatesFolder": "/Users/docwei/Downloads/SimpleMusic/mediaplayer/build/intermediates",
-      "makeFile": "/Users/docwei/Downloads/SimpleMusic/mediaplayer/CMakeLists.txt",
-      "moduleBuildFile": "/Users/docwei/Downloads/SimpleMusic/mediaplayer/build.gradle",
-      "moduleRootFolder": "/Users/docwei/Downloads/SimpleMusic/mediaplayer",
+      "intermediatesFolder": "/Users/docwei/SimpleMusic/mediaplayer/build/intermediates",
+      "makeFile": "/Users/docwei/SimpleMusic/mediaplayer/CMakeLists.txt",
+      "moduleBuildFile": "/Users/docwei/SimpleMusic/mediaplayer/build.gradle",
+      "moduleRootFolder": "/Users/docwei/SimpleMusic/mediaplayer",
       "ndkDefaultAbiList": [
         "ARMEABI",
         "ARMEABI_V7A",
         "ARM64_V8A",
-        "MIPS",
-        "MIPS64",
         "X86",
-        "X86_64"
+        "X86_64",
+        "MIPS",
+        "MIPS64"
       ],
-      "ndkFolder": "/Users/docwei/Desktop/android-ndk-r15c",
+      "ndkFolder": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b",
       "ndkMetaAbiList": [
         {
           "abi": "ARMEABI",
-          "bitness": 64,
+          "bitness": 32,
           "deprecated": false,
           "default": true
         },
         {
           "abi": "ARMEABI_V7A",
-          "bitness": 64,
+          "bitness": 32,
           "deprecated": false,
           "default": true
         },
@@ -133,25 +133,25 @@
           "default": true
         },
         {
-          "abi": "MIPS",
-          "bitness": 64,
-          "deprecated": false,
-          "default": true
-        },
-        {
-          "abi": "MIPS64",
-          "bitness": 64,
-          "deprecated": false,
-          "default": true
-        },
-        {
           "abi": "X86",
-          "bitness": 64,
+          "bitness": 32,
           "deprecated": false,
           "default": true
         },
         {
           "abi": "X86_64",
+          "bitness": 64,
+          "deprecated": false,
+          "default": true
+        },
+        {
+          "abi": "MIPS",
+          "bitness": 32,
+          "deprecated": false,
+          "default": true
+        },
+        {
+          "abi": "MIPS64",
           "bitness": 64,
           "deprecated": false,
           "default": true
@@ -161,67 +161,67 @@
         "ARMEABI",
         "ARMEABI_V7A",
         "ARM64_V8A",
-        "MIPS",
-        "MIPS64",
         "X86",
-        "X86_64"
+        "X86_64",
+        "MIPS",
+        "MIPS64"
       ],
       "ndkDefaultStl": "GNUSTL_STATIC",
-      "ndkVersion": "15.2.4203891",
+      "ndkVersion": "14.1.3816874",
       "project": {
-        "compilerSettingsCacheFolder": "/Users/docwei/Downloads/SimpleMusic/.cxx",
-        "cxxFolder": "/Users/docwei/Downloads/SimpleMusic/.cxx",
+        "compilerSettingsCacheFolder": "/Users/docwei/SimpleMusic/.cxx",
+        "cxxFolder": "/Users/docwei/SimpleMusic/.cxx",
         "ideBuildTargetAbi": "x86",
         "isBuildOnlyTargetAbiEnabled": true,
         "isCmakeBuildCohabitationEnabled": false,
         "isNativeCompilerSettingsCacheEnabled": false,
-        "rootBuildGradleFolder": "/Users/docwei/Downloads/SimpleMusic",
+        "rootBuildGradleFolder": "/Users/docwei/SimpleMusic",
         "sdkFolder": "/Users/docwei/Library/Android/sdk",
         "isPrefabEnabled": false
       },
       "splitsAbiFilterSet": [],
       "stlSharedObjectMap": {
         "GNUSTL_SHARED": {
-          "ARMEABI": "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi/libgnustl_shared.so",
-          "ARMEABI_V7A": "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi-v7a/libgnustl_shared.so",
-          "ARM64_V8A": "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/gnu-libstdc++/4.9/libs/arm64-v8a/libgnustl_shared.so",
-          "MIPS": "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/gnu-libstdc++/4.9/libs/mips/libgnustl_shared.so",
-          "MIPS64": "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/gnu-libstdc++/4.9/libs/mips64/libgnustl_shared.so",
-          "X86": "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/gnu-libstdc++/4.9/libs/x86/libgnustl_shared.so",
-          "X86_64": "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/gnu-libstdc++/4.9/libs/x86_64/libgnustl_shared.so"
+          "ARMEABI": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi/libgnustl_shared.so",
+          "ARMEABI_V7A": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi-v7a/libgnustl_shared.so",
+          "ARM64_V8A": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/sources/cxx-stl/gnu-libstdc++/4.9/libs/arm64-v8a/libgnustl_shared.so",
+          "X86": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/sources/cxx-stl/gnu-libstdc++/4.9/libs/x86/libgnustl_shared.so",
+          "X86_64": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/sources/cxx-stl/gnu-libstdc++/4.9/libs/x86_64/libgnustl_shared.so",
+          "MIPS": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/sources/cxx-stl/gnu-libstdc++/4.9/libs/mips/libgnustl_shared.so",
+          "MIPS64": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/sources/cxx-stl/gnu-libstdc++/4.9/libs/mips64/libgnustl_shared.so"
         },
         "GNUSTL_STATIC": {},
         "LIBCXX_SHARED": {
-          "ARMEABI": "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/llvm-libc++/libs/armeabi/libc++_shared.so",
-          "ARMEABI_V7A": "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/llvm-libc++/libs/armeabi-v7a/libc++_shared.so",
-          "ARM64_V8A": "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/llvm-libc++/libs/arm64-v8a/libc++_shared.so",
-          "MIPS": "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/llvm-libc++/libs/mips/libc++_shared.so",
-          "MIPS64": "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/llvm-libc++/libs/mips64/libc++_shared.so",
-          "X86": "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/llvm-libc++/libs/x86/libc++_shared.so",
-          "X86_64": "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/llvm-libc++/libs/x86_64/libc++_shared.so"
+          "ARMEABI": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/sources/cxx-stl/llvm-libc++/libs/armeabi/libc++_shared.so",
+          "ARMEABI_V7A": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/sources/cxx-stl/llvm-libc++/libs/armeabi-v7a/libc++_shared.so",
+          "ARM64_V8A": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/sources/cxx-stl/llvm-libc++/libs/arm64-v8a/libc++_shared.so",
+          "X86": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/sources/cxx-stl/llvm-libc++/libs/x86/libc++_shared.so",
+          "X86_64": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/sources/cxx-stl/llvm-libc++/libs/x86_64/libc++_shared.so",
+          "MIPS": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/sources/cxx-stl/llvm-libc++/libs/mips/libc++_shared.so",
+          "MIPS64": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/sources/cxx-stl/llvm-libc++/libs/mips64/libc++_shared.so"
         },
         "LIBCXX_STATIC": {},
         "NONE": {},
         "STLPORT_SHARED": {
-          "ARMEABI": "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/stlport/libs/armeabi/libstlport_shared.so",
-          "ARMEABI_V7A": "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/stlport/libs/armeabi-v7a/libstlport_shared.so",
-          "ARM64_V8A": "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/stlport/libs/arm64-v8a/libstlport_shared.so",
-          "MIPS": "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/stlport/libs/mips/libstlport_shared.so",
-          "MIPS64": "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/stlport/libs/mips64/libstlport_shared.so",
-          "X86": "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/stlport/libs/x86/libstlport_shared.so",
-          "X86_64": "/Users/docwei/Desktop/android-ndk-r15c/sources/cxx-stl/stlport/libs/x86_64/libstlport_shared.so"
+          "ARMEABI": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/sources/cxx-stl/stlport/libs/armeabi/libstlport_shared.so",
+          "ARMEABI_V7A": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/sources/cxx-stl/stlport/libs/armeabi-v7a/libstlport_shared.so",
+          "ARM64_V8A": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/sources/cxx-stl/stlport/libs/arm64-v8a/libstlport_shared.so",
+          "X86": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/sources/cxx-stl/stlport/libs/x86/libstlport_shared.so",
+          "X86_64": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/sources/cxx-stl/stlport/libs/x86_64/libstlport_shared.so",
+          "MIPS": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/sources/cxx-stl/stlport/libs/mips/libstlport_shared.so",
+          "MIPS64": "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/sources/cxx-stl/stlport/libs/mips64/libstlport_shared.so"
         },
         "STLPORT_STATIC": {},
         "SYSTEM": {}
       }
     },
-    "objFolder": "/Users/docwei/Downloads/SimpleMusic/mediaplayer/build/intermediates/cmake/debug/obj",
+    "objFolder": "/Users/docwei/SimpleMusic/mediaplayer/build/intermediates/cmake/debug/obj",
     "variantName": "debug",
     "validAbiList": [
       "X86"
     ],
-    "prefabDirectory": "/Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/prefab",
+    "prefabDirectory": "/Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/prefab",
     "prefabPackageDirectoryList": []
   },
-  "prefabFolder": "/Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/prefab/x86"
+  "prefabFolder": "/Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/prefab/x86"
 }

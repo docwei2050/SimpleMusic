@@ -1,50 +1,50 @@
-The target system is: Android - 21 - i686
+The target system is: Android - 1 - i686
 The host system is: Darwin - 19.6.0 - x86_64
 Determining if the C compiler works passed with the following output:
-Change Dir: /Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
+Change Dir: /Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_db997"
-[1/2] Building C object CMakeFiles/cmTC_db997.dir/testCCompiler.c.o
-[2/2] Linking C executable cmTC_db997
+Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_e808f"
+[1/2] Building C object CMakeFiles/cmTC_e808f.dir/testCCompiler.c.o
+[2/2] Linking C executable cmTC_e808f
 
 
 Detecting C compiler ABI info compiled with the following output:
-Change Dir: /Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
+Change Dir: /Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_5d7da"
-[1/2] Building C object CMakeFiles/cmTC_5d7da.dir/CMakeCCompilerABI.c.o
-[2/2] Linking C executable cmTC_5d7da
-Android clang version 5.0.300080  (based on LLVM 5.0.300080)
+Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_a4272"
+[1/2] Building C object CMakeFiles/cmTC_a4272.dir/CMakeCCompilerABI.c.o
+[2/2] Linking C executable cmTC_a4272
+Android clang version 3.8.275480  (based on LLVM 3.8.275480)
 Target: i686-none-linux-android
 Thread model: posix
-InstalledDir: /Users/docwei/Desktop/android-ndk-r15c/toolchains/llvm/prebuilt/darwin-x86_64/bin
-Found candidate GCC installation: /Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x
-Selected GCC installation: /Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x
+InstalledDir: /Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/llvm/prebuilt/darwin-x86_64/bin
+Found candidate GCC installation: /Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x
+Selected GCC installation: /Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x
 Candidate multilib: .;@m32
 Selected multilib: .;@m32
- "/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86 -pie --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_5d7da /Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o -L/Users/docwei/Desktop/android-ndk-r15c/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386 -L/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x -L/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib --exclude-libs libgcc.a --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_5d7da.dir/CMakeCCompilerABI.c.o -lgcc -ldl -lc -lgcc -ldl /Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib/crtend_android.o
+ "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86 -pie --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_a4272 /Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o -L/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x -L/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_a4272.dir/CMakeCCompilerABI.c.o -lgcc -ldl -lc -lgcc -ldl /Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib/crtend_android.o
 
 
 Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(i686-linux-android-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_5d7da"]
-  ignore line: [[1/2] Building C object CMakeFiles/cmTC_5d7da.dir/CMakeCCompilerABI.c.o]
-  ignore line: [[2/2] Linking C executable cmTC_5d7da]
-  ignore line: [Android clang version 5.0.300080  (based on LLVM 5.0.300080)]
+  ignore line: [Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_a4272"]
+  ignore line: [[1/2] Building C object CMakeFiles/cmTC_a4272.dir/CMakeCCompilerABI.c.o]
+  ignore line: [[2/2] Linking C executable cmTC_a4272]
+  ignore line: [Android clang version 3.8.275480  (based on LLVM 3.8.275480)]
   ignore line: [Target: i686-none-linux-android]
   ignore line: [Thread model: posix]
-  ignore line: [InstalledDir: /Users/docwei/Desktop/android-ndk-r15c/toolchains/llvm/prebuilt/darwin-x86_64/bin]
-  ignore line: [Found candidate GCC installation: /Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x]
-  ignore line: [Selected GCC installation: /Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x]
+  ignore line: [InstalledDir: /Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/llvm/prebuilt/darwin-x86_64/bin]
+  ignore line: [Found candidate GCC installation: /Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x]
+  ignore line: [Selected GCC installation: /Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x]
   ignore line: [Candidate multilib: .]
   ignore line: [@m32]
   ignore line: [Selected multilib: .]
   ignore line: [@m32]
-  link line: [ "/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86 -pie --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_5d7da /Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o -L/Users/docwei/Desktop/android-ndk-r15c/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386 -L/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x -L/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib --exclude-libs libgcc.a --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_5d7da.dir/CMakeCCompilerABI.c.o -lgcc -ldl -lc -lgcc -ldl /Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib/crtend_android.o]
-    arg [/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld] ==> ignore
-    arg [--sysroot=/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86] ==> ignore
+  link line: [ "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86 -pie --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_a4272 /Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o -L/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x -L/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_a4272.dir/CMakeCCompilerABI.c.o -lgcc -ldl -lc -lgcc -ldl /Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib/crtend_android.o]
+    arg [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld] ==> ignore
+    arg [--sysroot=/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86] ==> ignore
     arg [-pie] ==> ignore
     arg [--eh-frame-hdr] ==> ignore
     arg [-m] ==> ignore
@@ -52,14 +52,11 @@ Parsed C implicit link information from above output:
     arg [-dynamic-linker] ==> ignore
     arg [/system/bin/linker] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_5d7da] ==> ignore
-    arg [/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o] ==> ignore
-    arg [-L/Users/docwei/Desktop/android-ndk-r15c/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386] ==> dir [/Users/docwei/Desktop/android-ndk-r15c/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386]
-    arg [-L/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x] ==> dir [/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x]
-    arg [-L/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib] ==> dir [/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib]
-    arg [-L/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib] ==> dir [/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib]
-    arg [--exclude-libs] ==> ignore
-    arg [libgcc.a] ==> ignore
+    arg [cmTC_a4272] ==> ignore
+    arg [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o] ==> ignore
+    arg [-L/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x] ==> dir [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x]
+    arg [-L/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib] ==> dir [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib]
+    arg [-L/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib] ==> dir [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib]
     arg [--build-id] ==> ignore
     arg [--warn-shared-textrel] ==> ignore
     arg [--fatal-warnings] ==> ignore
@@ -69,30 +66,38 @@ Parsed C implicit link information from above output:
     arg [-znow] ==> ignore
     arg [--gc-sections] ==> ignore
     arg [-znocopyreloc] ==> ignore
-    arg [CMakeFiles/cmTC_5d7da.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [--warn-shared-textrel] ==> ignore
+    arg [--fatal-warnings] ==> ignore
+    arg [--no-undefined] ==> ignore
+    arg [-znoexecstack] ==> ignore
+    arg [-zrelro] ==> ignore
+    arg [-znow] ==> ignore
+    arg [--gc-sections] ==> ignore
+    arg [-znocopyreloc] ==> ignore
+    arg [CMakeFiles/cmTC_a4272.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [-ldl] ==> lib [dl]
     arg [-lc] ==> lib [c]
     arg [-lgcc] ==> lib [gcc]
     arg [-ldl] ==> lib [dl]
-    arg [/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib/crtend_android.o] ==> ignore
-  collapse library dir [/Users/docwei/Desktop/android-ndk-r15c/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386] ==> [/Users/docwei/Desktop/android-ndk-r15c/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386]
-  collapse library dir [/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x] ==> [/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x]
-  collapse library dir [/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib] ==> [/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/i686-linux-android/lib]
-  collapse library dir [/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib] ==> [/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib]
+    arg [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib/crtend_android.o] ==> ignore
+  collapse library dir [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x] ==> [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x]
+  collapse library dir [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib] ==> [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/i686-linux-android/lib]
+  collapse library dir [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib] ==> [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib]
   implicit libs: [gcc;dl;c;gcc;dl]
-  implicit dirs: [/Users/docwei/Desktop/android-ndk-r15c/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386;/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x;/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/i686-linux-android/lib;/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib]
+  implicit dirs: [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x;/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/i686-linux-android/lib;/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib]
   implicit fwks: []
 
 
 
 
 Detecting C [-std=c11] compiler features compiled with the following output:
-Change Dir: /Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
+Change Dir: /Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_615d8"
-[1/2] Building C object CMakeFiles/cmTC_615d8.dir/feature_tests.c.o
-[2/2] Linking C executable cmTC_615d8
+Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_d3795"
+[1/2] Building C object CMakeFiles/cmTC_d3795.dir/feature_tests.c.o
+[2/2] Linking C executable cmTC_d3795
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -102,11 +107,11 @@ Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ni
 
 
 Detecting C [-std=c99] compiler features compiled with the following output:
-Change Dir: /Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
+Change Dir: /Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_00a57"
-[1/2] Building C object CMakeFiles/cmTC_00a57.dir/feature_tests.c.o
-[2/2] Linking C executable cmTC_00a57
+Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_c606a"
+[1/2] Building C object CMakeFiles/cmTC_c606a.dir/feature_tests.c.o
+[2/2] Linking C executable cmTC_c606a
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -116,11 +121,11 @@ Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ni
 
 
 Detecting C [-std=c90] compiler features compiled with the following output:
-Change Dir: /Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
+Change Dir: /Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_50cbc"
-[1/2] Building C object CMakeFiles/cmTC_50cbc.dir/feature_tests.c.o
-[2/2] Linking C executable cmTC_50cbc
+Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_9f6f5"
+[1/2] Building C object CMakeFiles/cmTC_9f6f5.dir/feature_tests.c.o
+[2/2] Linking C executable cmTC_9f6f5
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -128,50 +133,50 @@ Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ni
     Feature record: C_FEATURE:0c_static_assert
     Feature record: C_FEATURE:0c_variadic_macros
 Determining if the CXX compiler works passed with the following output:
-Change Dir: /Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
+Change Dir: /Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_92599"
-[1/2] Building CXX object CMakeFiles/cmTC_92599.dir/testCXXCompiler.cxx.o
-[2/2] Linking CXX executable cmTC_92599
+Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_9f4a9"
+[1/2] Building CXX object CMakeFiles/cmTC_9f4a9.dir/testCXXCompiler.cxx.o
+[2/2] Linking CXX executable cmTC_9f4a9
 
 
 Detecting CXX compiler ABI info compiled with the following output:
-Change Dir: /Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
+Change Dir: /Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_368f1"
-[1/2] Building CXX object CMakeFiles/cmTC_368f1.dir/CMakeCXXCompilerABI.cpp.o
-[2/2] Linking CXX executable cmTC_368f1
-Android clang version 5.0.300080  (based on LLVM 5.0.300080)
+Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_aac4b"
+[1/2] Building CXX object CMakeFiles/cmTC_aac4b.dir/CMakeCXXCompilerABI.cpp.o
+[2/2] Linking CXX executable cmTC_aac4b
+Android clang version 3.8.275480  (based on LLVM 3.8.275480)
 Target: i686-none-linux-android
 Thread model: posix
-InstalledDir: /Users/docwei/Desktop/android-ndk-r15c/toolchains/llvm/prebuilt/darwin-x86_64/bin
-Found candidate GCC installation: /Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x
-Selected GCC installation: /Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x
+InstalledDir: /Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/llvm/prebuilt/darwin-x86_64/bin
+Found candidate GCC installation: /Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x
+Selected GCC installation: /Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x
 Candidate multilib: .;@m32
 Selected multilib: .;@m32
- "/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86 -pie --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_368f1 /Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o -L/Users/docwei/Desktop/android-ndk-r15c/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386 -L/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x -L/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib --exclude-libs libgcc.a --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_368f1.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc -lgcc -ldl -lc -lgcc -lgcc -ldl /Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib/crtend_android.o
+ "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86 -pie --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_aac4b /Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o -L/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x -L/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_aac4b.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc -lgcc -ldl -lc -lgcc -lgcc -ldl /Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib/crtend_android.o
 
 
 Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(i686-linux-android-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_368f1"]
-  ignore line: [[1/2] Building CXX object CMakeFiles/cmTC_368f1.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [[2/2] Linking CXX executable cmTC_368f1]
-  ignore line: [Android clang version 5.0.300080  (based on LLVM 5.0.300080)]
+  ignore line: [Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_aac4b"]
+  ignore line: [[1/2] Building CXX object CMakeFiles/cmTC_aac4b.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [[2/2] Linking CXX executable cmTC_aac4b]
+  ignore line: [Android clang version 3.8.275480  (based on LLVM 3.8.275480)]
   ignore line: [Target: i686-none-linux-android]
   ignore line: [Thread model: posix]
-  ignore line: [InstalledDir: /Users/docwei/Desktop/android-ndk-r15c/toolchains/llvm/prebuilt/darwin-x86_64/bin]
-  ignore line: [Found candidate GCC installation: /Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x]
-  ignore line: [Selected GCC installation: /Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x]
+  ignore line: [InstalledDir: /Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/llvm/prebuilt/darwin-x86_64/bin]
+  ignore line: [Found candidate GCC installation: /Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x]
+  ignore line: [Selected GCC installation: /Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x]
   ignore line: [Candidate multilib: .]
   ignore line: [@m32]
   ignore line: [Selected multilib: .]
   ignore line: [@m32]
-  link line: [ "/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86 -pie --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_368f1 /Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o -L/Users/docwei/Desktop/android-ndk-r15c/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386 -L/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x -L/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib --exclude-libs libgcc.a --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_368f1.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc -lgcc -ldl -lc -lgcc -lgcc -ldl /Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib/crtend_android.o]
-    arg [/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld] ==> ignore
-    arg [--sysroot=/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86] ==> ignore
+  link line: [ "/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86 -pie --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_aac4b /Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o -L/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x -L/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_aac4b.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc -lgcc -ldl -lc -lgcc -lgcc -ldl /Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib/crtend_android.o]
+    arg [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld] ==> ignore
+    arg [--sysroot=/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86] ==> ignore
     arg [-pie] ==> ignore
     arg [--eh-frame-hdr] ==> ignore
     arg [-m] ==> ignore
@@ -179,14 +184,11 @@ Parsed CXX implicit link information from above output:
     arg [-dynamic-linker] ==> ignore
     arg [/system/bin/linker] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_368f1] ==> ignore
-    arg [/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o] ==> ignore
-    arg [-L/Users/docwei/Desktop/android-ndk-r15c/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386] ==> dir [/Users/docwei/Desktop/android-ndk-r15c/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386]
-    arg [-L/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x] ==> dir [/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x]
-    arg [-L/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib] ==> dir [/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib]
-    arg [-L/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib] ==> dir [/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib]
-    arg [--exclude-libs] ==> ignore
-    arg [libgcc.a] ==> ignore
+    arg [cmTC_aac4b] ==> ignore
+    arg [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o] ==> ignore
+    arg [-L/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x] ==> dir [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x]
+    arg [-L/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib] ==> dir [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib]
+    arg [-L/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib] ==> dir [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib]
     arg [--build-id] ==> ignore
     arg [--warn-shared-textrel] ==> ignore
     arg [--fatal-warnings] ==> ignore
@@ -196,7 +198,16 @@ Parsed CXX implicit link information from above output:
     arg [-znow] ==> ignore
     arg [--gc-sections] ==> ignore
     arg [-znocopyreloc] ==> ignore
-    arg [CMakeFiles/cmTC_368f1.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [--warn-shared-textrel] ==> ignore
+    arg [--fatal-warnings] ==> ignore
+    arg [--no-undefined] ==> ignore
+    arg [-znoexecstack] ==> ignore
+    arg [-zrelro] ==> ignore
+    arg [-znow] ==> ignore
+    arg [--gc-sections] ==> ignore
+    arg [-znocopyreloc] ==> ignore
+    arg [CMakeFiles/cmTC_aac4b.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgcc] ==> lib [gcc]
@@ -206,24 +217,23 @@ Parsed CXX implicit link information from above output:
     arg [-lgcc] ==> lib [gcc]
     arg [-lgcc] ==> lib [gcc]
     arg [-ldl] ==> lib [dl]
-    arg [/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib/crtend_android.o] ==> ignore
-  collapse library dir [/Users/docwei/Desktop/android-ndk-r15c/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386] ==> [/Users/docwei/Desktop/android-ndk-r15c/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386]
-  collapse library dir [/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x] ==> [/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x]
-  collapse library dir [/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib] ==> [/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/i686-linux-android/lib]
-  collapse library dir [/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib] ==> [/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib]
+    arg [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib/crtend_android.o] ==> ignore
+  collapse library dir [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x] ==> [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x]
+  collapse library dir [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib] ==> [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/i686-linux-android/lib]
+  collapse library dir [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib] ==> [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib]
   implicit libs: [stdc++;m;gcc;gcc;dl;c;gcc;gcc;dl]
-  implicit dirs: [/Users/docwei/Desktop/android-ndk-r15c/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386;/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x;/Users/docwei/Desktop/android-ndk-r15c/toolchains/x86-4.9/prebuilt/darwin-x86_64/i686-linux-android/lib;/Users/docwei/Desktop/android-ndk-r15c/platforms/android-21/arch-x86/usr/lib]
+  implicit dirs: [/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x;/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/toolchains/x86-4.9/prebuilt/darwin-x86_64/i686-linux-android/lib;/Users/docwei/software/android/sdk/ndk/android-ndk-r14b/platforms/android-21/arch-x86/usr/lib]
   implicit fwks: []
 
 
 
 
 Detecting CXX [-std=c++1z] compiler features compiled with the following output:
-Change Dir: /Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
+Change Dir: /Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_35472"
-[1/2] Building CXX object CMakeFiles/cmTC_35472.dir/feature_tests.cxx.o
-[2/2] Linking CXX executable cmTC_35472
+Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_3162f"
+[1/2] Building CXX object CMakeFiles/cmTC_3162f.dir/feature_tests.cxx.o
+[2/2] Linking CXX executable cmTC_3162f
 
 
     Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
@@ -286,11 +296,11 @@ Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ni
 
 
 Detecting CXX [-std=c++14] compiler features compiled with the following output:
-Change Dir: /Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
+Change Dir: /Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_899a0"
-[1/2] Building CXX object CMakeFiles/cmTC_899a0.dir/feature_tests.cxx.o
-[2/2] Linking CXX executable cmTC_899a0
+Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_11de2"
+[1/2] Building CXX object CMakeFiles/cmTC_11de2.dir/feature_tests.cxx.o
+[2/2] Linking CXX executable cmTC_11de2
 
 
     Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
@@ -353,11 +363,11 @@ Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ni
 
 
 Detecting CXX [-std=c++11] compiler features compiled with the following output:
-Change Dir: /Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
+Change Dir: /Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_0d9ab"
-[1/2] Building CXX object CMakeFiles/cmTC_0d9ab.dir/feature_tests.cxx.o
-[2/2] Linking CXX executable cmTC_0d9ab
+Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_7f49c"
+[1/2] Building CXX object CMakeFiles/cmTC_7f49c.dir/feature_tests.cxx.o
+[2/2] Linking CXX executable cmTC_7f49c
 
 
     Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
@@ -420,11 +430,11 @@ Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ni
 
 
 Detecting CXX [-std=c++98] compiler features compiled with the following output:
-Change Dir: /Users/docwei/Downloads/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
+Change Dir: /Users/docwei/SimpleMusic/mediaplayer/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_36cf1"
-[1/2] Building CXX object CMakeFiles/cmTC_36cf1.dir/feature_tests.cxx.o
-[2/2] Linking CXX executable cmTC_36cf1
+Run Build Command:"/Users/docwei/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja" "cmTC_edb68"
+[1/2] Building CXX object CMakeFiles/cmTC_edb68.dir/feature_tests.cxx.o
+[2/2] Linking CXX executable cmTC_edb68
 
 
     Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
