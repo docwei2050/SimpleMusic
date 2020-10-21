@@ -23,7 +23,7 @@ void FFmpegDecode::prepared() {
 
 void FFmpegDecode::decodeFFmpegThread() {
     av_register_all();
-    avformat_network_deinit();
+    avformat_network_init();
     pFortmatCtx = avformat_alloc_context();
     if (avformat_open_input(&pFortmatCtx, url, NULL, NULL) != 0) {
         LOGE("can not open url:%s", url)
@@ -51,7 +51,7 @@ void FFmpegDecode::decodeFFmpegThread() {
     }
 
     audio->avCodecContext = avcodec_alloc_context3(codec);
-    if (audio->avCodecContext) {
+    if (!audio->avCodecContext) {
         LOGE("can not alloc new decoderCtx")
         return;
     }
