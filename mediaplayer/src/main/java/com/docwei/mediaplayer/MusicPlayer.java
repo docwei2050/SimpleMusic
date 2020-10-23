@@ -47,7 +47,20 @@ public class MusicPlayer {
             }
         }).start();
     }
+    public void start(){
+        if(TextUtils.isEmpty(source)){
+            Log.e("player","source is empty");
+            return;
+        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                n_start();
+            }
+        }).start();
+    }
     public native void n_parpared(String source);
+    public native void n_start();
 
     //C++在子线程中回调这个方法
     public void onCallPrepared(){

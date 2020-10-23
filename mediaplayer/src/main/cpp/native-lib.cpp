@@ -34,4 +34,10 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
         return result;
     }
     return JNI_VERSION_1_6;
+}extern "C"
+JNIEXPORT void JNICALL
+Java_com_docwei_mediaplayer_MusicPlayer_n_1start(JNIEnv *env, jobject thiz) {
+    if (fFmpegDecode != NULL) {
+        fFmpegDecode->start();
+    }
 }

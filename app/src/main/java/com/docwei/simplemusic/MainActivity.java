@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         mMusicPlayer.setOnPreparedListener(new OnPreparedListener() {
             @Override
             public void onPrepared() {
-              Log.e("simpleMusic","onPrepared");
+              mMusicPlayer.start();
             }
         });
 

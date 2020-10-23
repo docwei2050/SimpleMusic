@@ -6,6 +6,9 @@
 #define SIMPLEMUSIC_SIMPLEAUDIO_H
 
 
+#include "PlayStatus.h"
+#include "queue"
+#include "SimpleQueue.h"
 
 extern "C" {
 #include <libavcodec/avcodec.h>
@@ -15,10 +18,12 @@ class SimpleAudio {
 
 public :
     AVCodecParameters *codecParameters = NULL;
-    AVCodecContext *avCodecContext= NULL;
+    AVCodecContext *avCodecContext = NULL;
     int streamIndex = -1;
+    PlayStatus *playStatus = NULL;
+    SimpleQueue *queue = NULL;
 
-    SimpleAudio();
+    SimpleAudio(PlayStatus* playStatus);
 
     ~SimpleAudio();
 };

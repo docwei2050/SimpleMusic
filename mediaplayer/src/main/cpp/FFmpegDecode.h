@@ -10,6 +10,7 @@
 #include <stddef.h>
 #include "pthread.h"
 #include "SimpleAudio.h"
+#include "PlayStatus.h"
 
 extern "C" {
 #include <libavformat/avformat.h>
@@ -23,6 +24,7 @@ public:
     pthread_t decodeThread;
     AVFormatContext *pFortmatCtx = NULL;
     SimpleAudio *audio = NULL;
+    PlayStatus* playStatus=NULL;
 
 public:
     FFmpegDecode(CallJava *callJava, const char *url);
@@ -32,6 +34,8 @@ public:
     void prepared();
 
     void decodeFFmpegThread();
+
+    void start();
 };
 
 

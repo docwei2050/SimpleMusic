@@ -4,6 +4,9 @@
 
 #include "SimpleAudio.h"
 
-SimpleAudio::SimpleAudio() {
 
+
+SimpleAudio::SimpleAudio(PlayStatus *playStatus) {
+  this->playStatus=playStatus;
+  queue=new SimpleQueue(playStatus);
 }

@@ -38,7 +38,7 @@ void FFmpegDecode::decodeFFmpegThread() {
     for (int i = 0; i < pFortmatCtx->nb_streams; i++) {
         if (pFortmatCtx->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_AUDIO) {
             if (audio == NULL) {
-                audio = new SimpleAudio();
+                audio = new SimpleAudio(playStatus);
                 audio->streamIndex = i;
                 audio->codecParameters = pFortmatCtx->streams[i]->codecpar;
             }
@@ -68,4 +68,41 @@ void FFmpegDecode::decodeFFmpegThread() {
 
     callJava->onCallPrepared(CHILD_THREAD);
 
+}
+
+void FFmpegDecode::start() {
+    if (audio == NULL) {
+        LOGE("audio is NULL")
+        return;
+    }
+    int count = 0;
+    while (1) {
+        AVPacket *avPacket = av_packet_alloc();
+        if (av_read_frame(pFortmatCtx, avPacket) == 0) {
+            if (avPacket->stream_index == audio->streamIndex) {
+                //解码操作
+                count++;
+                LOGE("解码第%d帧", count);
+                audio->queue->putAvPacket(avPacket);
+            } else {
+                av_packet_free(&avPacket);
+                av_free(avPacket);
+            }
+        } else {
+            LOGE("decode finished");
+            av_packet_free(&avPacket);
+            av_free(avPacket);
+            break;
+        }
+    }
+
+    //模拟出队列
+    while (audio->queue->getQueueSize() > 0) {
+        AVPacket *packet = av_packet_alloc();
+        audio->queue->getAvPakcet(packet);
+        av_packet_free(&packet);
+        av_free(packet);
+        packet - NULL;
+    }
+    LOGE("解码完成")
 }
