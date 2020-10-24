@@ -24,10 +24,10 @@ public:
     pthread_t decodeThread;
     AVFormatContext *pFortmatCtx = NULL;
     SimpleAudio *audio = NULL;
-    PlayStatus* playStatus=NULL;
+    PlayStatus *playStatus = NULL;
 
 public:
-    FFmpegDecode(CallJava *callJava, const char *url);
+    FFmpegDecode(PlayStatus *playStatus, CallJava *callJava, const char *url);
 
     ~FFmpegDecode();
 

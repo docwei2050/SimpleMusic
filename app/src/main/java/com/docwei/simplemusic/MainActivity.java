@@ -9,6 +9,8 @@ import android.view.View;
 import com.docwei.mediaplayer.MusicPlayer;
 import com.docwei.mediaplayer.listener.OnPreparedListener;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -28,7 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void begin(View view){
-        mMusicPlayer.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
+       // mMusicPlayer.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
+        File file=new File("/storage/emulated/0/$MuMu共享文件夹/1.mp3");
+        mMusicPlayer.setSource(file.getAbsolutePath());
         mMusicPlayer.prepared();
 
     }

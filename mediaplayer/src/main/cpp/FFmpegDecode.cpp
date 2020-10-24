@@ -6,7 +6,8 @@
 #include "FFmpegDecode.h"
 
 
-FFmpegDecode::FFmpegDecode(CallJava *callJava, const char *url) {
+FFmpegDecode::FFmpegDecode(PlayStatus * playStatus,CallJava *callJava, const char *url) {
+    this->playStatus=playStatus;
     this->callJava = callJava;
     this->url = url;
 }
@@ -38,7 +39,7 @@ void FFmpegDecode::decodeFFmpegThread() {
     for (int i = 0; i < pFortmatCtx->nb_streams; i++) {
         if (pFortmatCtx->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_AUDIO) {
             if (audio == NULL) {
-                audio = new SimpleAudio(playStatus);
+                audio = new SimpleAudio(playStatus,pFortmatCtx->streams[i]->codecpar->sample_rate);
                 audio->streamIndex = i;
                 audio->codecParameters = pFortmatCtx->streams[i]->codecpar;
             }
@@ -75,8 +76,9 @@ void FFmpegDecode::start() {
         LOGE("audio is NULL")
         return;
     }
+    audio->play();
     int count = 0;
-    while (1) {
+    while (playStatus != NULL && !playStatus->exit) {
         AVPacket *avPacket = av_packet_alloc();
         if (av_read_frame(pFortmatCtx, avPacket) == 0) {
             if (avPacket->stream_index == audio->streamIndex) {
@@ -92,17 +94,16 @@ void FFmpegDecode::start() {
             LOGE("decode finished");
             av_packet_free(&avPacket);
             av_free(avPacket);
-            break;
+            while (playStatus != NULL && !playStatus->exit) {
+                if (audio->queue->getQueueSize() > 0) {
+                    continue;
+                } else {
+                    playStatus->exit = true;
+                    break;
+                }
+            }
         }
     }
-
-    //模拟出队列
-    while (audio->queue->getQueueSize() > 0) {
-        AVPacket *packet = av_packet_alloc();
-        audio->queue->getAvPakcet(packet);
-        av_packet_free(&packet);
-        av_free(packet);
-        packet - NULL;
-    }
     LOGE("解码完成")
+
 }

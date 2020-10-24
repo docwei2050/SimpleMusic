@@ -9,7 +9,7 @@ extern "C" {
 JavaVM *javaVm = NULL;
 CallJava *callJava = NULL;
 FFmpegDecode *fFmpegDecode = NULL;
-
+PlayStatus *playStatus=NULL;
 
 extern "C"
 JNIEXPORT void JNICALL
@@ -19,7 +19,8 @@ Java_com_docwei_mediaplayer_MusicPlayer_n_1parpared(JNIEnv *env, jobject thiz, j
         if (callJava == NULL) {
             callJava = new CallJava(javaVm, env, &thiz);
         }
-        fFmpegDecode = new FFmpegDecode(callJava, url);
+        playStatus=new PlayStatus();
+        fFmpegDecode = new FFmpegDecode(playStatus,callJava, url);
         fFmpegDecode->prepared();
     }
     // env->ReleaseStringUTFChars(source, url);

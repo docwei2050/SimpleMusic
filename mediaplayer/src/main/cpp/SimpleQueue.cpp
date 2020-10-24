@@ -34,14 +34,13 @@ int SimpleQueue::getAvPakcet(AVPacket *packet) {
             av_packet_free(&avPacket);
             av_free(avPacket);
             avPacket = NULL;
-            if (LOG_DEBUG) {
-                LOGD("从队列里面取出一个AVPacket,还剩个数为：%d", queuePacket.size());
-            }
+            LOGD("从队列里面取出一个AVPacket,还剩个数为：%d", queuePacket.size());
             break;
         } else {
             pthread_cond_wait(&condPacket, &mutexPacket);
         }
     }
+    pthread_mutex_unlock(&mutexPacket);
     return 0;
 }
 
