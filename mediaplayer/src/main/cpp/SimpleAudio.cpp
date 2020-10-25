@@ -6,11 +6,12 @@
 #include "SimpleAudio.h"
 
 
-SimpleAudio::SimpleAudio(PlayStatus *playStatus, int sample_rate) {
+SimpleAudio::SimpleAudio(PlayStatus *playStatus, int sample_rate, CallJava *callJava) {
+    this->calljava = callJava;
     this->sample_rate = sample_rate;
     this->playStatus = playStatus;
     queue = new SimpleQueue(playStatus);
-    buffer = (uint8_t *) av_malloc(44100 * 2 * 2);
+    buffer = (uint8_t *) av_malloc(sample_rate * 2 * 2);
 }
 
 void *decodePlay(void *data) {
@@ -25,7 +26,24 @@ void SimpleAudio::play() {
 
 
 int SimpleAudio::resampleAudio() {
+    //不置于0就会一直回调
+    data_size = 0;
     while (playStatus != NULL && !playStatus->exit) {
+        if (queue->getQueueSize() == 0) {
+            //加载中
+            if (!playStatus->load) {
+                playStatus->load = true;
+                calljava->onCallLoad(CHILD_THREAD, true);
+            }
+            continue;
+        } else {
+            if (playStatus->load) {
+                playStatus->load = false;
+                calljava->onCallLoad(CHILD_THREAD, false);
+            }
+        }
+
+
         avPacket = av_packet_alloc();
         if (queue->getAvPakcet(avPacket) != 0) {
             av_packet_free(&avPacket);
@@ -75,7 +93,14 @@ int SimpleAudio::resampleAudio() {
                                  (const uint8_t **) avFrame->data, avFrame->nb_samples);
             int out_channels = av_get_channel_layout_nb_channels(AV_CH_LAYOUT_STEREO);
             data_size = nb * out_channels * av_get_bytes_per_sample(AV_SAMPLE_FMT_S16);
-            LOGE("data_size is %d", data_size);
+            //LOGE("data_size is %d", data_size);
+
+            now_time = avFrame->pts * av_q2d(time_base);
+            if (now_time < clock) {
+                now_time = clock;
+            }
+            clock = now_time;
+
             av_packet_free(&avPacket);
             av_free(avPacket);
             avPacket = NULL;
@@ -105,6 +130,12 @@ void pcmBufferCallBack(SLAndroidSimpleBufferQueueItf bf, void *context) {
         //  重采样将目标音频搞成Pcm数据给OPenSLES队列
         int bufferSize = audio->resampleAudio();
         if (bufferSize > 0) {
+            audio->clock += bufferSize / (double) (audio->sample_rate * 2 * 2);
+            //防止频繁回调  在线直播时audio->duration是拿不到的
+            if (audio->clock - audio->last_time > 0.1 && audio->duration > 0) {
+                audio->last_time = audio->clock;
+                audio->calljava->onCallTimeInfo(CHILD_THREAD, audio->clock, audio->duration);
+            }
             (*audio->pcmBufferQueue)->Enqueue(audio->pcmBufferQueue, (char *) audio->buffer,
                                               bufferSize);
         }
@@ -235,3 +266,68 @@ void SimpleAudio::initOpenSLES() {
     pcmBufferCallBack(pcmBufferQueue, this);
 
 }
+
+void SimpleAudio::pause() {
+    if (pcmPlayerPlay != NULL) {
+        (*pcmPlayerPlay)->SetPlayState(pcmPlayerPlay, SL_PLAYSTATE_PAUSED);
+    }
+}
+
+void SimpleAudio::resume() {
+    if (pcmPlayerPlay != NULL) {
+        (*pcmPlayerPlay)->SetPlayState(pcmPlayerPlay, SL_PLAYSTATE_PLAYING);
+    }
+}
+
+void SimpleAudio::stop() {
+    if (pcmPlayerPlay != NULL) {
+        (*pcmPlayerPlay)->SetPlayState(pcmPlayerPlay, SL_PLAYSTATE_STOPPED);
+    }
+}
+
+void SimpleAudio::release() {
+    stop();
+    if (queue != NULL) {
+        delete (queue);
+        queue = NULL;
+    }
+    if (pcmPlayerObject != NULL) {
+        (*pcmPlayerObject)->Destroy(pcmPlayerObject);
+        pcmPlayerObject = NULL;
+        pcmPlayerPlay = NULL;
+        pcmBufferQueue = NULL;
+    }
+    if (outputMixObject != NULL) {
+        (*outputMixObject)->Destroy(outputMixObject);
+        outputMixObject = NULL;
+        outputMixEnvironmentalReverb = NULL;
+    }
+    if (engineEngine != NULL) {
+        (*engineObject)->Destroy(engineObject);
+        engineObject = NULL;
+        engineEngine = NULL;
+    }
+    if (buffer != NULL) {
+        free(buffer);
+        buffer = NULL;
+    }
+    if (avCodecContext != NULL) {
+        avcodec_close(avCodecContext);
+        avcodec_free_context(&avCodecContext);
+        avCodecContext = NULL;
+    }
+    if (playStatus != NULL) {
+        playStatus = NULL;
+    }
+    if (calljava != NULL) {
+        calljava = NULL;
+    }
+    last_time = 0;
+    clock = 0;
+}
+
+SimpleAudio::~SimpleAudio() {
+
+}
+
+

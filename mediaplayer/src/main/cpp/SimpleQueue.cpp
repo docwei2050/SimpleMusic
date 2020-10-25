@@ -45,9 +45,27 @@ int SimpleQueue::getAvPakcet(AVPacket *packet) {
 }
 
 int SimpleQueue::getQueueSize() {
-    int size=0;
+    int size = 0;
     pthread_mutex_lock(&mutexPacket);
-    size=queuePacket.size();
+    size = queuePacket.size();
     pthread_mutex_unlock(&mutexPacket);
     return size;
+}
+
+void SimpleQueue::clearAvPacket() {
+    pthread_cond_signal(&condPacket);
+    pthread_mutex_lock(&mutexPacket);
+    while (!queuePacket.empty()) {
+        AVPacket *packet = queuePacket.front();
+        queuePacket.pop();
+        av_packet_free(&packet);
+        av_free(packet);
+        packet = NULL;
+    }
+    pthread_mutex_unlock(&mutexPacket);
+
+}
+
+SimpleQueue::~SimpleQueue() {
+  clearAvPacket();
 }

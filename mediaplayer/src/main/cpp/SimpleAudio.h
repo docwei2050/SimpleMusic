@@ -9,6 +9,7 @@
 #include "PlayStatus.h"
 #include "queue"
 #include "SimpleQueue.h"
+#include "CallJava.h"
 
 extern "C" {
 #include <libavcodec/avcodec.h>
@@ -28,8 +29,8 @@ public :
     AVCodecContext *avCodecContext = NULL;
     int streamIndex = -1;
     PlayStatus *playStatus = NULL;
+    CallJava * calljava=NULL;
     SimpleQueue *queue = NULL;
-
 
     pthread_t thread_play;
     AVPacket *avPacket = NULL;
@@ -38,6 +39,12 @@ public :
     uint8_t *buffer = NULL;
     int data_size = 0;
     int sample_rate=0;
+
+    double clock;
+    double now_time;
+    double last_time;
+    double duration;
+    AVRational time_base;
 
 
     //引擎接口
@@ -57,7 +64,7 @@ public :
     SLAndroidSimpleBufferQueueItf pcmBufferQueue;
 
 
-    SimpleAudio(PlayStatus *playStatus,int sample_rate);
+    SimpleAudio(PlayStatus *playStatus,int sample_rate,CallJava* callJava);
 
 
     ~SimpleAudio();
@@ -69,6 +76,12 @@ public :
     void initOpenSLES();
 
     unsigned int getCurrentSampleRateForOpenSles(int sample_rate);
+
+    void pause();
+    void resume();
+
+    void stop();
+    void release();
 };
 
 

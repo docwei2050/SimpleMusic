@@ -20,12 +20,22 @@ public:
     jobject jobj;
 
     jmethodID  jmid_prepared;
+    jmethodID jmid_onLoad;
+    jmethodID jmid_timeInfo;
+    jmethodID jmid_error;
+    jmethodID jmid_complete;
+
 public :
     CallJava(JavaVM *javaVM, JNIEnv *env, jobject *obj);
 
     ~CallJava();
 
     void onCallPrepared(int type);
+    void onCallLoad(int type,bool load);
+    void onCallTimeInfo(int type,int curr,int total);
+    void onCallError(int type,int code,char * msg);
+    void onCallComplete(int type);
+
 };
 
 

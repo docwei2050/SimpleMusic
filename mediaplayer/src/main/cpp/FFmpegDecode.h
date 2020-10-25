@@ -15,6 +15,7 @@
 extern "C" {
 #include <libavformat/avformat.h>
 #include <libavcodec/avcodec.h>
+#include <libavutil/time.h>
 };
 
 class FFmpegDecode {
@@ -25,6 +26,10 @@ public:
     AVFormatContext *pFortmatCtx = NULL;
     SimpleAudio *audio = NULL;
     PlayStatus *playStatus = NULL;
+    pthread_mutex_t init_mutex;
+    bool exit=false;
+    int duration=0;
+    pthread_mutex_t  seek_mutex;
 
 public:
     FFmpegDecode(PlayStatus *playStatus, CallJava *callJava, const char *url);
@@ -36,6 +41,11 @@ public:
     void decodeFFmpegThread();
 
     void start();
+
+    void pause();
+    void resume();
+    void release();
+    void seek(int64_t seconds);
 };
 
 

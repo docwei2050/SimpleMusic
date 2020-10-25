@@ -9,8 +9,9 @@ extern "C" {
 JavaVM *javaVm = NULL;
 CallJava *callJava = NULL;
 FFmpegDecode *fFmpegDecode = NULL;
-PlayStatus *playStatus=NULL;
-
+PlayStatus *playStatus = NULL;
+bool nexit = true;
+pthread_t start_thread;
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_docwei_mediaplayer_MusicPlayer_n_1parpared(JNIEnv *env, jobject thiz, jstring source) {
@@ -19,8 +20,9 @@ Java_com_docwei_mediaplayer_MusicPlayer_n_1parpared(JNIEnv *env, jobject thiz, j
         if (callJava == NULL) {
             callJava = new CallJava(javaVm, env, &thiz);
         }
-        playStatus=new PlayStatus();
-        fFmpegDecode = new FFmpegDecode(playStatus,callJava, url);
+        callJava->onCallLoad(MAIN_THREAD, true);
+        playStatus = new PlayStatus();
+        fFmpegDecode = new FFmpegDecode(playStatus, callJava, url);
         fFmpegDecode->prepared();
     }
     // env->ReleaseStringUTFChars(source, url);
@@ -35,10 +37,62 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
         return result;
     }
     return JNI_VERSION_1_6;
-}extern "C"
+}
+
+void *start(void *ctx) {
+    FFmpegDecode *fFmpegDecode = (FFmpegDecode *) ctx;
+    fFmpegDecode->start();
+    pthread_exit(&start_thread);
+}
+
+extern "C"
 JNIEXPORT void JNICALL
 Java_com_docwei_mediaplayer_MusicPlayer_n_1start(JNIEnv *env, jobject thiz) {
     if (fFmpegDecode != NULL) {
-        fFmpegDecode->start();
+        pthread_create(&start_thread, NULL, start, fFmpegDecode);
+    }
+}extern "C"
+JNIEXPORT void JNICALL
+Java_com_docwei_mediaplayer_MusicPlayer_n_1resume(JNIEnv *env, jobject thiz) {
+    if (fFmpegDecode != NULL) {
+        fFmpegDecode->resume();
+    }
+}extern "C"
+JNIEXPORT void JNICALL
+Java_com_docwei_mediaplayer_MusicPlayer_n_1pause(JNIEnv *env, jobject thiz) {
+    if (fFmpegDecode != NULL) {
+        fFmpegDecode->pause();
+    }
+}extern "C"
+JNIEXPORT void JNICALL
+Java_com_docwei_mediaplayer_MusicPlayer_n_1stop(JNIEnv *env, jobject thiz) {
+    if (!nexit) {
+        return;
+    }
+    jclass jlz = env->GetObjectClass(thiz);
+    jmethodID jmid_playNext = env->GetMethodID(jlz, "onCallNext", "()V");
+
+
+    nexit = false;
+    if (fFmpegDecode != NULL) {
+        fFmpegDecode->release();
+        delete (fFmpegDecode);
+        fFmpegDecode = NULL;
+        if (callJava != NULL) {
+            delete (callJava);
+            callJava = NULL;
+        }
+        if (playStatus != NULL) {
+            delete (playStatus);
+            playStatus = NULL;
+        }
+    }
+    nexit = true;
+    env->CallVoidMethod(thiz, jmid_playNext);
+}extern "C"
+JNIEXPORT void JNICALL
+Java_com_docwei_mediaplayer_MusicPlayer_n_1seek(JNIEnv *env, jobject thiz, jint seconds) {
+    if (fFmpegDecode != NULL) {
+        fFmpegDecode->seek(seconds);
     }
 }

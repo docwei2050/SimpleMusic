@@ -8,8 +8,13 @@
 
 class PlayStatus {
 public:
-   bool exit;
-   PlayStatus();
+    bool exit = false;
+    bool load = true;
+    bool seek = false;
+
+    PlayStatus();
+
+    ~PlayStatus();
 };
 
 

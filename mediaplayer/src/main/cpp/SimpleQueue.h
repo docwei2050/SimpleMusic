@@ -28,6 +28,9 @@ public:
     int putAvPacket(AVPacket *packet);
     int getAvPakcet(AVPacket *packet);
     int getQueueSize();
+
+    //释放资源
+    void clearAvPacket();
 };
 
 
