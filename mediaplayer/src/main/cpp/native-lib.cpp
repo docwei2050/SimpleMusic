@@ -95,4 +95,16 @@ Java_com_docwei_mediaplayer_MusicPlayer_n_1seek(JNIEnv *env, jobject thiz, jint 
     if (fFmpegDecode != NULL) {
         fFmpegDecode->seek(seconds);
     }
+}extern "C"
+JNIEXPORT jint JNICALL
+Java_com_docwei_mediaplayer_MusicPlayer_n_1duration(JNIEnv *env, jobject thiz) {
+    if (fFmpegDecode != NULL) {
+        return fFmpegDecode->duration;
+    }
+}extern "C"
+JNIEXPORT void JNICALL
+Java_com_docwei_mediaplayer_MusicPlayer_n_1volumn(JNIEnv *env, jobject thiz, jint percent) {
+    if (fFmpegDecode != NULL) {
+        fFmpegDecode->setVolumn(percent);
+    }
 }

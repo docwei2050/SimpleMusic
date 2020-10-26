@@ -7,75 +7,120 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/sample_text"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="#5B5D5E"
-        android:onClick="begin"
-        android:padding="10dp"
-        android:text="准备"
-        android:textColor="#FFC107"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="#5B5D5E"
-        android:onClick="pause"
-        android:padding="10dp"
-        android:text="暂停"
-        android:textColor="#F44336"
-        android:textStyle="bold" />
+        <Button
+            android:id="@+id/sample_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="#5B5D5E"
+            android:onClick="begin"
+            android:padding="10dp"
+            android:text="准备"
+            android:textColor="#FFC107"
+            android:textStyle="bold" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="#5B5D5E"
-        android:onClick="play"
-        android:padding="10dp"
-        android:text="播放"
-        android:textColor="#07FFCD"
-        android:textStyle="bold" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="#5B5D5E"
-        android:onClick="stop"
-        android:padding="10dp"
-        android:text="stop"
-        android:textColor="#FF9800"
-        android:textStyle="bold" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="#5B5D5E"
-        android:onClick="seek"
-        android:padding="10dp"
-        android:text="seek"
-        android:textColor="#FF9800"
-        android:textStyle="bold" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="#5B5D5E"
-        android:onClick="next"
-        android:padding="10dp"
-        android:text="next"
-        android:textColor="#FF9800"
-        android:textStyle="bold" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="#5B5D5E"
+            android:onClick="pause"
+            android:padding="10dp"
+            android:text="暂停"
+            android:textColor="#F44336"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="#5B5D5E"
+            android:onClick="play"
+            android:padding="10dp"
+            android:text="播放"
+            android:textColor="#07FFCD"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="#5B5D5E"
+            android:onClick="stop"
+            android:padding="10dp"
+            android:text="stop"
+            android:textColor="#FF9800"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="#5B5D5E"
+            android:onClick="seek"
+            android:padding="10dp"
+            android:text="seek"
+            android:textColor="#FF9800"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="#5B5D5E"
+            android:onClick="next"
+            android:padding="10dp"
+            android:text="next"
+            android:textColor="#FF9800"
+            android:textStyle="bold" />
+    </LinearLayout>
+
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_time"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:text="00:00/00:00"
-        android:id="@+id/tv_time"
         android:textColor="@color/colorPrimary"
         android:textSize="16dp" />
+
+    <SeekBar
+        android:id="@+id/time"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:id="@+id/tv_volumn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:text="音量50%"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16dp" />
+
+    <SeekBar
+        android:id="@+id/volumn"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

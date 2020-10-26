@@ -45,7 +45,7 @@ public :
     double last_time;
     double duration;
     AVRational time_base;
-
+    int volumnPercent=100;
 
     //引擎接口
     SLObjectItf engineObject = NULL;
@@ -82,6 +82,8 @@ public :
 
     void stop();
     void release();
+
+    void setVolumn(int percent);
 };
 
 

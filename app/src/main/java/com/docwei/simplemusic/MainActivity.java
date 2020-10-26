@@ -3,6 +3,7 @@ package com.docwei.simplemusic;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,19 +14,29 @@ import com.docwei.mediaplayer.listener.OnPlayStatusListener;
 import com.docwei.mediaplayer.listener.OnPreparedListener;
 import com.docwei.mediaplayer.listener.OnTimeInfoListener;
 
-import java.io.File;
-
 public class MainActivity extends AppCompatActivity {
 
 
     private MusicPlayer mMusicPlayer;
     private TextView mTv_time;
+    private TextView mTv_time1;
+    private SeekBar mSeekBar_time;
+    private TextView mTv_volumn;
+    private SeekBar mSeekBar_volumn;
+    private boolean isHandleSeekTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mTv_time = findViewById(R.id.tv_time);
+
+        mTv_time1 = findViewById(R.id.tv_time);
+        mSeekBar_time = findViewById(R.id.time);
+        mTv_volumn = findViewById(R.id.tv_volumn);
+        mSeekBar_volumn = findViewById(R.id.volumn);
+
+
         mMusicPlayer = new MusicPlayer();
         mMusicPlayer.setOnPreparedListener(new OnPreparedListener() {
             @Override
@@ -55,16 +66,62 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         mTv_time.setText(TimeUtil.seconds2Format(currentTime) + "/" + TimeUtil.seconds2Format(totalTime));
+                        if (!isHandleSeekTime) {
+                            mSeekBar_time.setProgress((currentTime * 100 / totalTime));
+                        }
                     }
                 });
             }
         });
+        mSeekBar_time.setProgress(0);
+        mSeekBar_time.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser && isHandleSeekTime) {
+                    mMusicPlayer.seek(seekBar.getProgress() * mMusicPlayer.getDuration() / 100);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                isHandleSeekTime = true;
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                isHandleSeekTime = false;
+
+            }
+        });
+
+        mMusicPlayer.setVolumnPercent(50);
+        mSeekBar_volumn.setProgress(50);
+        mSeekBar_volumn.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                mMusicPlayer.setVolumnPercent(progress);
+                mTv_volumn.setText(progress + "%");
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+
     }
 
     public void begin(View view) {
         mMusicPlayer.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
         //File file = new File("/storage/emulated/0/$MuMu共享文件夹/1.mp3");
-      // mMusicPlayer.setSource(file.getAbsolutePath());
+        // mMusicPlayer.setSource(file.getAbsolutePath());
         mMusicPlayer.prepared();
 
     }
@@ -89,5 +146,6 @@ public class MainActivity extends AppCompatActivity {
 
         mMusicPlayer.playNext("http://ngcdn004.cnr.cn/live/dszs/index.m3u8");
     }
+
 
 }

@@ -245,3 +245,9 @@ void FFmpegDecode::seek(int64_t seconds) {
     }
 
 }
+
+void FFmpegDecode::setVolumn(int percent) {
+    if(audio!=NULL){
+        audio->setVolumn(percent);
+    }
+}

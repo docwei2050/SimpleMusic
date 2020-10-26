@@ -33,8 +33,9 @@ public class MusicPlayer {
     private OnTimeInfoListener mOnTimeInfoListener;
     private OnErrorListener mOnErrorListener;
     private OnCompleteListener mOnCompleteListener;
-    private  boolean playNext=false;
-
+    private boolean playNext = false;
+    private int duration = -1;
+    private int volumnPercent = 100;
 
     public MusicPlayer() {
 
@@ -68,6 +69,16 @@ public class MusicPlayer {
         mOnCompleteListener = onCompleteListener;
     }
 
+    public void setVolumnPercent(int percent) {
+        volumnPercent = percent;
+
+    }
+
+    public int getVolumnPercent() {
+        return volumnPercent;
+    }
+
+
     public void prepared() {
 
         if (TextUtils.isEmpty(source)) {
@@ -77,6 +88,7 @@ public class MusicPlayer {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                duration = -1;
                 n_parpared(source);
             }
         }).start();
@@ -91,6 +103,7 @@ public class MusicPlayer {
             @Override
             public void run() {
                 n_start();
+                setVolumnPercent(volumnPercent);
             }
         }).start();
     }
@@ -106,6 +119,10 @@ public class MusicPlayer {
     public native void n_stop();
 
     public native void n_seek(int seconds);
+
+    public native int n_duration();
+
+    public native void n_volumn(int percent);
 
     //C++在子线程中回调这个方法
     public void onCallPrepared() {
@@ -123,7 +140,6 @@ public class MusicPlayer {
     public void onCallTimeInfo(int curr, int total) {
         if (mOnTimeInfoListener != null) {
             mOnTimeInfoListener.onTime(curr, total);
-            Log.e("player", "onTimeInfo" + total + "---" + curr);
         }
     }
 
@@ -138,9 +154,10 @@ public class MusicPlayer {
             mOnCompleteListener.onComplete();
         }
     }
-    public void onCallNext(){
-        if(playNext){
-            playNext=false;
+
+    public void onCallNext() {
+        if (playNext) {
+            playNext = false;
             prepared();
         }
     }
@@ -171,8 +188,16 @@ public class MusicPlayer {
     }
 
     public void playNext(String url) {
-         source=url;
-         playNext=true;
-         stop();
+        source = url;
+        playNext = true;
+        stop();
+    }
+
+    public int getDuration() {
+        if (duration < 0) {
+            duration = n_duration();
+            return duration;
+        }
+        return duration;
     }
 }

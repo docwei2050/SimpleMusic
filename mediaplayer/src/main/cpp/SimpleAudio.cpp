@@ -246,16 +246,20 @@ void SimpleAudio::initOpenSLES() {
 
     //得到接口后调用  获取Player接口
     (*pcmPlayerObject)->GetInterface(pcmPlayerObject, SL_IID_PLAY, &pcmPlayerPlay);
+    (*pcmPlayerObject)->GetInterface(pcmPlayerObject, SL_IID_VOLUME, &pcmPlayerVolume);
 
     //第四步---------------------------------------
     // 创建缓冲区和回调函数
     (*pcmPlayerObject)->GetInterface(pcmPlayerObject, SL_IID_BUFFERQUEUE, &pcmBufferQueue);
+
+
 
     //缓冲接口回调
     (*pcmBufferQueue)->RegisterCallback(pcmBufferQueue, pcmBufferCallBack, this);
     //获取音量接口
     (*pcmPlayerObject)->GetInterface(pcmPlayerObject, SL_IID_VOLUME, &pcmPlayerVolume);
 
+    setVolumn(volumnPercent);
     //第五步----------------------------------------
     // 设置播放状态
     (*pcmPlayerPlay)->SetPlayState(pcmPlayerPlay, SL_PLAYSTATE_PLAYING);
@@ -328,6 +332,33 @@ void SimpleAudio::release() {
 
 SimpleAudio::~SimpleAudio() {
 
+}
+
+void SimpleAudio::setVolumn(int percent) {
+    volumnPercent=percent;
+    if (pcmPlayerPlay != NULL) {
+        {
+            if (percent > 30) {
+                (*pcmPlayerVolume)->SetVolumeLevel(pcmPlayerVolume, (100 - percent) * -20);
+            } else if (percent > 25) {
+                (*pcmPlayerVolume)->SetVolumeLevel(pcmPlayerVolume, (100 - percent) * -22);
+            } else if (percent > 20) {
+                (*pcmPlayerVolume)->SetVolumeLevel(pcmPlayerVolume, (100 - percent) * -25);
+            } else if (percent > 15) {
+                (*pcmPlayerVolume)->SetVolumeLevel(pcmPlayerVolume, (100 - percent) * -28);
+            } else if (percent > 10) {
+                (*pcmPlayerVolume)->SetVolumeLevel(pcmPlayerVolume, (100 - percent) * -30);
+            } else if (percent > 5) {
+                (*pcmPlayerVolume)->SetVolumeLevel(pcmPlayerVolume, (100 - percent) * -34);
+            } else if (percent > 3) {
+                (*pcmPlayerVolume)->SetVolumeLevel(pcmPlayerVolume, (100 - percent) * -37);
+            } else if (percent > 0) {
+                (*pcmPlayerVolume)->SetVolumeLevel(pcmPlayerVolume, (100 - percent) * -40);
+            } else {
+                (*pcmPlayerVolume)->SetVolumeLevel(pcmPlayerVolume, (100 - percent) * -100);
+            }
+        }
+    }
 }
 
 
