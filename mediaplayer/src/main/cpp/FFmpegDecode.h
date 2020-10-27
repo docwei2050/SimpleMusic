@@ -49,6 +49,8 @@ public:
 
 
     void setVolumn(int percent);
+
+    void setMute(int mute);
 };
 
 

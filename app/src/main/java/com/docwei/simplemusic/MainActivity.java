@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.docwei.mediaplayer.MusicPlayer;
+import com.docwei.mediaplayer.bean.Mute;
 import com.docwei.mediaplayer.listener.OnLoadListener;
 import com.docwei.mediaplayer.listener.OnPlayStatusListener;
 import com.docwei.mediaplayer.listener.OnPreparedListener;
@@ -148,4 +149,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void right(View view) {
+        mMusicPlayer.setMute(Mute.MUTE_RIGHT);
+    }
+
+    public void center(View view) {
+        mMusicPlayer.setMute(Mute.MUTE_CENTER);
+    }
+
+    public void left(View view) {
+        mMusicPlayer.setMute(Mute.MUTE_LEFT);
+    }
 }

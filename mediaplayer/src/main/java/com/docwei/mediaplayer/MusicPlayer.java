@@ -3,6 +3,7 @@ package com.docwei.mediaplayer;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.docwei.mediaplayer.bean.Mute;
 import com.docwei.mediaplayer.listener.OnCompleteListener;
 import com.docwei.mediaplayer.listener.OnErrorListener;
 import com.docwei.mediaplayer.listener.OnLoadListener;
@@ -36,6 +37,7 @@ public class MusicPlayer {
     private boolean playNext = false;
     private int duration = -1;
     private int volumnPercent = 100;
+    private int mute;
 
     public MusicPlayer() {
 
@@ -71,7 +73,7 @@ public class MusicPlayer {
 
     public void setVolumnPercent(int percent) {
         volumnPercent = percent;
-
+        n_volumn(percent);
     }
 
     public int getVolumnPercent() {
@@ -123,6 +125,9 @@ public class MusicPlayer {
     public native int n_duration();
 
     public native void n_volumn(int percent);
+
+    public native void n_mute(int mute);
+
 
     //C++在子线程中回调这个方法
     public void onCallPrepared() {
@@ -199,5 +204,10 @@ public class MusicPlayer {
             return duration;
         }
         return duration;
+    }
+
+    public void setMute(Mute mute) {
+        this.mute = mute.getValue();
+        n_mute(mute.getValue());
     }
 }

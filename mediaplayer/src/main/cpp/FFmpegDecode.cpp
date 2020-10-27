@@ -251,3 +251,9 @@ void FFmpegDecode::setVolumn(int percent) {
         audio->setVolumn(percent);
     }
 }
+
+void FFmpegDecode::setMute(int mute) {
+    if(audio!=NULL){
+        audio->setMute(mute);
+    }
+}

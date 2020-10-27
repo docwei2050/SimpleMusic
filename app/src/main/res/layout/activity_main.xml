@@ -123,4 +123,44 @@
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="#5B5D5E"
+            android:onClick="left"
+            android:padding="10dp"
+            android:text="左声道"
+            android:textColor="#FF9800"
+            android:textStyle="bold" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="#5B5D5E"
+            android:onClick="center"
+            android:padding="10dp"
+            android:text="立体声"
+            android:textColor="#FFC107"
+            android:textStyle="bold" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="#5B5D5E"
+            android:onClick="right"
+            android:padding="10dp"
+            android:text="右声道"
+            android:textColor="#FF9800"
+            android:textStyle="bold" />
+    </LinearLayout>
 </LinearLayout>

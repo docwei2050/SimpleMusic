@@ -107,4 +107,10 @@ Java_com_docwei_mediaplayer_MusicPlayer_n_1volumn(JNIEnv *env, jobject thiz, jin
     if (fFmpegDecode != NULL) {
         fFmpegDecode->setVolumn(percent);
     }
+}extern "C"
+JNIEXPORT void JNICALL
+Java_com_docwei_mediaplayer_MusicPlayer_n_1mute(JNIEnv *env, jobject thiz, jint mute) {
+    if (fFmpegDecode != NULL) {
+        fFmpegDecode->setMute(mute);
+    }
 }

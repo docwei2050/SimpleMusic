@@ -46,6 +46,7 @@ public :
     double duration;
     AVRational time_base;
     int volumnPercent=100;
+    int mute=2;
 
     //引擎接口
     SLObjectItf engineObject = NULL;
@@ -59,6 +60,7 @@ public :
     SLObjectItf pcmPlayerObject = NULL;
     SLPlayItf pcmPlayerPlay = NULL;
     SLVolumeItf pcmPlayerVolume = NULL;
+    SLMuteSoloItf pcmPlayerMuteSolo = NULL;
 
     //缓冲器队列接口
     SLAndroidSimpleBufferQueueItf pcmBufferQueue;
@@ -84,6 +86,8 @@ public :
     void release();
 
     void setVolumn(int percent);
+
+    void setMute(int mute);
 };
 
 
