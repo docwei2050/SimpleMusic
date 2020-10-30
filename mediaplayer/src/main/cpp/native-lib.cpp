@@ -113,4 +113,16 @@ Java_com_docwei_mediaplayer_MusicPlayer_n_1mute(JNIEnv *env, jobject thiz, jint 
     if (fFmpegDecode != NULL) {
         fFmpegDecode->setMute(mute);
     }
+}extern "C"
+JNIEXPORT void JNICALL
+Java_com_docwei_mediaplayer_MusicPlayer_n_1setTune(JNIEnv *env, jobject thiz, jfloat tune) {
+    if (fFmpegDecode != NULL) {
+        fFmpegDecode->setTune(tune);
+    }
+}extern "C"
+JNIEXPORT void JNICALL
+Java_com_docwei_mediaplayer_MusicPlayer_n_1setSpeed(JNIEnv *env, jobject thiz, jfloat speed) {
+    if (fFmpegDecode != NULL) {
+        fFmpegDecode->setSpeed(speed);
+    }
 }

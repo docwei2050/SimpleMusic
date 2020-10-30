@@ -257,3 +257,16 @@ void FFmpegDecode::setMute(int mute) {
         audio->setMute(mute);
     }
 }
+
+void FFmpegDecode::setSpeed(float speeed) {
+    if(audio!=NULL){
+        audio->setSpeed(speeed);
+    }
+
+}
+
+void FFmpegDecode::setTune(float tune) {
+    if(audio!=NULL){
+        audio->setTune(tune);
+    }
+}

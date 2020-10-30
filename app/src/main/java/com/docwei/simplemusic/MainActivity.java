@@ -15,6 +15,8 @@ import com.docwei.mediaplayer.listener.OnPlayStatusListener;
 import com.docwei.mediaplayer.listener.OnPreparedListener;
 import com.docwei.mediaplayer.listener.OnTimeInfoListener;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -120,9 +122,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void begin(View view) {
-        mMusicPlayer.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
-        //File file = new File("/storage/emulated/0/$MuMu共享文件夹/1.mp3");
-        // mMusicPlayer.setSource(file.getAbsolutePath());
+       // mMusicPlayer.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
+        File file = new File("/storage/emulated/0/$MuMu共享文件夹/1.mp3");
+         mMusicPlayer.setSource(file.getAbsolutePath());
         mMusicPlayer.prepared();
 
     }
@@ -159,5 +161,25 @@ public class MainActivity extends AppCompatActivity {
 
     public void left(View view) {
         mMusicPlayer.setMute(Mute.MUTE_LEFT);
+    }
+
+    public void speed(View view) {
+        mMusicPlayer.setSpeed(1.5f);
+        mMusicPlayer.setTune(1.0f);
+    }
+
+    public void normalSeep(View view) {
+        mMusicPlayer.setSpeed(1.0f);
+        mMusicPlayer.setTune(1.0f);
+    }
+
+    public void tune(View view) {
+        mMusicPlayer.setSpeed(1.0f);
+        mMusicPlayer.setTune(1.5f);
+    }
+
+    public void speedTune(View view) {
+        mMusicPlayer.setSpeed(1.0f);
+        mMusicPlayer.setTune(1.5f);
     }
 }

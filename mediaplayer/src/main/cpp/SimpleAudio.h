@@ -10,6 +10,7 @@
 #include "queue"
 #include "SimpleQueue.h"
 #include "CallJava.h"
+#include "SoundTouch.h"
 
 extern "C" {
 #include <libavcodec/avcodec.h>
@@ -20,7 +21,7 @@ extern "C" {
 #include <SLES/OpenSLES.h>
 #include <SLES/OpenSLES_Android.h>
 }
-
+using namespace soundtouch;
 
 class SimpleAudio {
 
@@ -29,7 +30,7 @@ public :
     AVCodecContext *avCodecContext = NULL;
     int streamIndex = -1;
     PlayStatus *playStatus = NULL;
-    CallJava * calljava=NULL;
+    CallJava *calljava = NULL;
     SimpleQueue *queue = NULL;
 
     pthread_t thread_play;
@@ -38,25 +39,26 @@ public :
     int ret = 0;
     uint8_t *buffer = NULL;
     int data_size = 0;
-    int sample_rate=0;
+    int sample_rate = 0;
 
     double clock;
     double now_time;
     double last_time;
     double duration;
     AVRational time_base;
-    int volumnPercent=100;
-    int mute=2;
+    int volumnPercent = 100;
+    int mute = 2;
+
 
     //引擎接口
     SLObjectItf engineObject = NULL;
     SLEngineItf engineEngine = NULL;
 
-   //混音器
+    //混音器
     SLObjectItf outputMixObject = NULL;
     SLEnvironmentalReverbItf outputMixEnvironmentalReverb = NULL;
     SLEnvironmentalReverbSettings reverbSettings = SL_I3DL2_ENVIRONMENT_PRESET_STONECORRIDOR;
-   //pcm
+    //pcm
     SLObjectItf pcmPlayerObject = NULL;
     SLPlayItf pcmPlayerPlay = NULL;
     SLVolumeItf pcmPlayerVolume = NULL;
@@ -65,29 +67,48 @@ public :
     //缓冲器队列接口
     SLAndroidSimpleBufferQueueItf pcmBufferQueue;
 
+    //soundTouch相关
+    SoundTouch *soundTouch = NULL;
+    SAMPLETYPE *sampleBuffer = NULL;
+    float speed = 1.0f;
+    float tune = 1.0f;
+    int nb = 0;
+    int num = 0;
+    uint8_t *out_buffer = NULL;
+    bool finished =true;
+    bool isRecordPcm=false;
 
-    SimpleAudio(PlayStatus *playStatus,int sample_rate,CallJava* callJava);
+    SimpleAudio(PlayStatus *playStatus, int sample_rate, CallJava *callJava);
 
 
     ~SimpleAudio();
 
     void play();
 
-    int resampleAudio();
+    int resampleAudio(void **pcmbuf);
 
     void initOpenSLES();
 
     unsigned int getCurrentSampleRateForOpenSles(int sample_rate);
 
     void pause();
+
     void resume();
 
     void stop();
+
     void release();
 
     void setVolumn(int percent);
 
     void setMute(int mute);
+
+    void setSpeed(float speed);
+
+    void setTune(float tune);
+
+    //pcm数据是uint_8 而soundTouch至少是uint_16
+    int getSoundTouchData();
 };
 
 

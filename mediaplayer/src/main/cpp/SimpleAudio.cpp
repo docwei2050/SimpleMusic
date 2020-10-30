@@ -12,6 +12,16 @@ SimpleAudio::SimpleAudio(PlayStatus *playStatus, int sample_rate, CallJava *call
     this->playStatus = playStatus;
     queue = new SimpleQueue(playStatus);
     buffer = (uint8_t *) av_malloc(sample_rate * 2 * 2);
+
+
+    sampleBuffer = static_cast<SAMPLETYPE *>(malloc(sample_rate * 2 * 2));
+    this->soundTouch = new SoundTouch();
+    soundTouch->setSampleRate(sample_rate);
+    soundTouch->setChannels(2);
+    soundTouch->setPitch(tune);
+    soundTouch->setTempo(speed);
+
+
 }
 
 void *decodePlay(void *data) {
@@ -25,10 +35,13 @@ void SimpleAudio::play() {
 }
 
 
-int SimpleAudio::resampleAudio() {
+int SimpleAudio::resampleAudio(void **pcmbuf) {
     //不置于0就会一直回调
     data_size = 0;
     while (playStatus != NULL && !playStatus->exit) {
+        if(playStatus->seek){
+            continue;
+        }
         if (queue->getQueueSize() == 0) {
             //加载中
             if (!playStatus->load) {
@@ -89,8 +102,8 @@ int SimpleAudio::resampleAudio() {
                 continue;
             }
             //重采样操作
-            int nb = swr_convert(swrContext, &buffer, avFrame->nb_samples,
-                                 (const uint8_t **) avFrame->data, avFrame->nb_samples);
+            nb = swr_convert(swrContext, &buffer, avFrame->nb_samples,
+                             (const uint8_t **) avFrame->data, avFrame->nb_samples);
             int out_channels = av_get_channel_layout_nb_channels(AV_CH_LAYOUT_STEREO);
             data_size = nb * out_channels * av_get_bytes_per_sample(AV_SAMPLE_FMT_S16);
             //LOGE("data_size is %d", data_size);
@@ -100,6 +113,7 @@ int SimpleAudio::resampleAudio() {
                 now_time = clock;
             }
             clock = now_time;
+            *pcmbuf = buffer;
 
             av_packet_free(&avPacket);
             av_free(avPacket);
@@ -128,16 +142,16 @@ void pcmBufferCallBack(SLAndroidSimpleBufferQueueItf bf, void *context) {
     SimpleAudio *audio = (SimpleAudio *) context;
     if (audio != NULL) {
         //  重采样将目标音频搞成Pcm数据给OPenSLES队列
-        int bufferSize = audio->resampleAudio();
+        int bufferSize = audio->getSoundTouchData();
         if (bufferSize > 0) {
             audio->clock += bufferSize / (double) (audio->sample_rate * 2 * 2);
             //防止频繁回调  在线直播时audio->duration是拿不到的
-            if (audio->clock - audio->last_time > 0.1 && audio->duration > 0) {
+            if (audio->clock - audio->last_time >= 0.1 && audio->duration > 0) {
                 audio->last_time = audio->clock;
                 audio->calljava->onCallTimeInfo(CHILD_THREAD, audio->clock, audio->duration);
             }
-            (*audio->pcmBufferQueue)->Enqueue(audio->pcmBufferQueue, (char *) audio->buffer,
-                                              bufferSize);
+
+            (*audio->pcmBufferQueue)->Enqueue(audio->pcmBufferQueue, (char *) audio->sampleBuffer,bufferSize);
         }
     }
 }
@@ -235,7 +249,7 @@ void SimpleAudio::initOpenSLES() {
     };
 
     SLDataSource slDataSource = {&android_queue, &pcm};
-    SLDataSink audioSnk = {&outputMix, NULL};
+    SLDataSink audioSnk = {&outputMix, 0};
     const SLInterfaceID ids[4] = {SL_IID_BUFFERQUEUE, SL_IID_EFFECTSEND, SL_IID_VOLUME,
                                   SL_IID_MUTESOLO};
     const SLboolean req[4] = {SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE};
@@ -247,7 +261,6 @@ void SimpleAudio::initOpenSLES() {
 
     //得到接口后调用  获取Player接口
     (*pcmPlayerObject)->GetInterface(pcmPlayerObject, SL_IID_PLAY, &pcmPlayerPlay);
-    (*pcmPlayerObject)->GetInterface(pcmPlayerObject, SL_IID_VOLUME, &pcmPlayerVolume);
 
     //第四步---------------------------------------
     // 创建缓冲区和回调函数
@@ -380,6 +393,54 @@ void SimpleAudio::setMute(int mute) {
         }
     }
 
+}
+
+void SimpleAudio::setSpeed(float speed) {
+    this->speed = speed;
+    if (soundTouch != NULL) {
+        soundTouch->setTempo(speed);
+    }
+
+}
+
+void SimpleAudio::setTune(float tune) {
+    this->tune = tune;
+    if (soundTouch != NULL) {
+        soundTouch->setPitch(tune);
+    }
+}
+
+int SimpleAudio::getSoundTouchData() {
+    while (playStatus != NULL && !playStatus->exit) {
+        out_buffer = NULL;
+        if (finished) {
+            finished = false;
+            data_size = resampleAudio(reinterpret_cast<void **>(&out_buffer));
+            if (data_size > 0) {
+                for (int i = 0; i < data_size / 2 + 1; i++) {
+                    sampleBuffer[i] = (out_buffer[i * 2] | ((out_buffer[i * 2] + 1) << 8));
+                }
+                soundTouch->putSamples(sampleBuffer, nb);
+                num = soundTouch->receiveSamples(sampleBuffer, data_size / 4);
+            } else {
+                soundTouch->flush();
+            }
+        }
+        if (num == 0) {
+            finished = true;
+            continue;
+        } else {
+            if (out_buffer == NULL) {
+                num = soundTouch->receiveSamples(sampleBuffer, data_size / 4);
+                if (num == 0) {
+                    finished = true;
+                    continue;
+                }
+            }
+            return num;
+        }
+    }
+    return 0;
 }
 
 

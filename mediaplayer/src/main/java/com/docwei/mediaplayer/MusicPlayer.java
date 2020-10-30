@@ -38,6 +38,8 @@ public class MusicPlayer {
     private int duration = -1;
     private int volumnPercent = 100;
     private int mute;
+    private float speed;
+    private float tune;
 
     public MusicPlayer() {
 
@@ -127,6 +129,8 @@ public class MusicPlayer {
     public native void n_volumn(int percent);
 
     public native void n_mute(int mute);
+    public native void n_setSpeed(float speed);
+    public native void n_setTune(float tune);
 
 
     //C++在子线程中回调这个方法
@@ -209,5 +213,15 @@ public class MusicPlayer {
     public void setMute(Mute mute) {
         this.mute = mute.getValue();
         n_mute(mute.getValue());
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
+        n_setSpeed(speed);
+    }
+
+    public void setTune(float tune) {
+        this.tune = tune;
+        n_setTune(tune);
     }
 }

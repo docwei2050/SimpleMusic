@@ -163,4 +163,57 @@
             android:textColor="#FF9800"
             android:textStyle="bold" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="#5B5D5E"
+            android:onClick="speed"
+            android:padding="10dp"
+            android:text="变速不变调"
+            android:textColor="#FF9800"
+            android:textStyle="bold" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="#5B5D5E"
+            android:onClick="normalSeep"
+            android:padding="10dp"
+            android:text="正常速度音调"
+            android:textColor="#FFC107"
+            android:textStyle="bold" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="#5B5D5E"
+            android:onClick="tune"
+            android:padding="10dp"
+            android:text="变调不变速"
+            android:textColor="#FF9800"
+            android:textStyle="bold" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="#5B5D5E"
+            android:onClick="speedTune"
+            android:padding="10dp"
+            android:text="变速变调"
+            android:textColor="#FF9800"
+            android:textStyle="bold" />
+    </LinearLayout>
 </LinearLayout>

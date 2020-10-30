@@ -51,6 +51,10 @@ public:
     void setVolumn(int percent);
 
     void setMute(int mute);
+
+
+    void setSpeed(float speeed);
+    void setTune(float tune);
 };
 
 

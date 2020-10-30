@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.4.1)
 
 #导入头文件
 include_directories(src/main/cpp/include)
+include_directories(src/main/cpp/soundtouch/include)
 add_library(
         native-lib
         SHARED
@@ -11,7 +12,20 @@ add_library(
         src/main/cpp/FFmpegDecode.cpp
         src/main/cpp/SimpleAudio.cpp
         src/main/cpp/SimpleQueue.cpp
-        src/main/cpp/PlayStatus.cpp)
+        src/main/cpp/PlayStatus.cpp
+
+        src/main/cpp/soundtouch/SoundTouch/AAFilter.cpp
+        src/main/cpp/soundtouch/SoundTouch/FIFOSampleBuffer.cpp
+        src/main/cpp/soundtouch/SoundTouch/FIRFilter.cpp
+        src/main/cpp/soundtouch/SoundTouch/cpu_detect_x86.cpp
+        src/main/cpp/soundtouch/SoundTouch/sse_optimized.cpp
+        src/main/cpp/soundtouch/SoundTouch/RateTransposer.cpp
+        src/main/cpp/soundtouch/SoundTouch/SoundTouch.cpp
+        src/main/cpp/soundtouch/SoundTouch/InterpolateCubic.cpp
+        src/main/cpp/soundtouch/SoundTouch/InterpolateLinear.cpp
+        src/main/cpp/soundtouch/SoundTouch/InterpolateShannon.cpp
+        src/main/cpp/soundtouch/SoundTouch/TDStretch.cpp
+        src/main/cpp/soundtouch/SoundTouch/PeakFinder.cpp)
 
 add_library(avcodec-57 SHARED IMPORTED)
 set_target_properties(avcodec-57
