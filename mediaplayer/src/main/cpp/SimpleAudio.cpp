@@ -4,8 +4,8 @@
 
 #include "SimpleAudio.h"
 
-SimpleAudio::SimpleAudio(PlayStatus *playStatus, int sample_rate, CallJava *calljava) {
-    this->calljava = calljava;
+SimpleAudio::SimpleAudio(PlayStatus *playStatus, int sample_rate, CallJava *callJava) {
+    this->callJava = callJava;
     this->playStatus = playStatus;
     this->sample_rate = sample_rate;
     queue = new SimpleQueue(playStatus);
@@ -24,11 +24,11 @@ SimpleAudio::~SimpleAudio() {
 }
 
 void *decodPlay(void *data) {
-    SimpleAudio *simpleAudio = (SimpleAudio *) data;
+    SimpleAudio *wlAudio = (SimpleAudio *) data;
 
-    simpleAudio->initOpenSLES();
+    wlAudio->initOpenSLES();
 
-    pthread_exit(&simpleAudio->thread_play);
+    pthread_exit(&wlAudio->thread_play);
 }
 
 void SimpleAudio::play() {
@@ -49,13 +49,13 @@ int SimpleAudio::resampleAudio(void **pcmbuf) {
         {
             if (!playStatus->load) {
                 playStatus->load = true;
-                calljava->onCallLoad(CHILD_THREAD, true);
+                callJava->onCallLoad(CHILD_THREAD, true);
             }
             continue;
         } else {
             if (playStatus->load) {
                 playStatus->load = false;
-                calljava->onCallLoad(CHILD_THREAD, false);
+                callJava->onCallLoad(CHILD_THREAD, false);
             }
         }
         avPacket = av_packet_alloc();
@@ -143,77 +143,63 @@ int SimpleAudio::resampleAudio(void **pcmbuf) {
 }
 
 
-void pcmBufferCallBack(SLAndroidSimpleBufferQueueItf bf, void *context) {
-    SimpleAudio *audio = (SimpleAudio *) context;
-    if (audio != NULL) {
-        int buffersize = audio->getSoundTouchData();
-        if (buffersize > 0) {
-            audio->clock += buffersize / ((double) (audio->sample_rate * 2 * 2));
-            if (audio->clock - audio->last_time >= 0.1) {
-                audio->last_time = audio->clock;
-                //回调应用层
-                audio->calljava->onCallTimeInfo(CHILD_THREAD, audio->clock, audio->duration);
-            }
-            if(audio->isRecordPcm){
-                audio->calljava->onCallPCMToAAC(CHILD_THREAD,buffersize*2*2,audio->sampleBuffer);
-            }
+int SimpleAudio::getSoundTouchData() {
 
-
-            audio->calljava->onCallVolumnDB(CHILD_THREAD, audio->getPCMdB(
-                    reinterpret_cast<char *>(audio->sampleBuffer), buffersize * 4));
-            (*audio->pcmBufferQueue)->Enqueue(audio->pcmBufferQueue, (char *) audio->sampleBuffer,
-                                              buffersize * 2 * 2);
+    while (playStatus != NULL && !playStatus->exit) {
+        out_buffer = NULL;
+        if (finished) {
+            finished = false;
+            data_size = resampleAudio(reinterpret_cast<void **>(&out_buffer));
+            if (data_size > 0) {
+                for (int i = 0; i < data_size / 2 + 1; i++) {
+                    sampleBuffer[i] = (out_buffer[i * 2] | ((out_buffer[i * 2 + 1]) << 8));
+                }
+                soundTouch->putSamples(sampleBuffer, nb);
+                num = soundTouch->receiveSamples(sampleBuffer, data_size / 4);
+            } else {
+                soundTouch->flush();
+            }
+        }
+        if (num == 0) {
+            finished = true;
+            continue;
+        } else {
+            if (out_buffer == NULL) {
+                num = soundTouch->receiveSamples(sampleBuffer, data_size / 4);
+                if (num == 0) {
+                    finished = true;
+                    continue;
+                }
+            }
+            return num;
         }
     }
+    return 0;
 }
 
-
-unsigned int SimpleAudio::getCurrentSampleRateForOpenSles(int sample_rate) {
-    int rate = 0;
-    switch (sample_rate) {
-        case 8000:
-            rate = SL_SAMPLINGRATE_8;
-            break;
-        case 11025:
-            rate = SL_SAMPLINGRATE_11_025;
-            break;
-        case 12000:
-            rate = SL_SAMPLINGRATE_12;
-            break;
-        case 16000:
-            rate = SL_SAMPLINGRATE_16;
-            break;
-        case 22050:
-            rate = SL_SAMPLINGRATE_22_05;
-            break;
-        case 24000:
-            rate = SL_SAMPLINGRATE_24;
-            break;
-        case 32000:
-            rate = SL_SAMPLINGRATE_32;
-            break;
-        case 44100:
-            rate = SL_SAMPLINGRATE_44_1;
-            break;
-        case 48000:
-            rate = SL_SAMPLINGRATE_48;
-            break;
-        case 64000:
-            rate = SL_SAMPLINGRATE_64;
-            break;
-        case 88200:
-            rate = SL_SAMPLINGRATE_88_2;
-            break;
-        case 96000:
-            rate = SL_SAMPLINGRATE_96;
-            break;
-        case 192000:
-            rate = SL_SAMPLINGRATE_192;
-            break;
-        default:
-            rate = SL_SAMPLINGRATE_44_1;
+void pcmBufferCallBack(SLAndroidSimpleBufferQueueItf bf, void *context) {
+    SimpleAudio *wlAudio = (SimpleAudio *) context;
+    if (wlAudio != NULL) {
+        int buffersize = wlAudio->getSoundTouchData();
+        if (buffersize > 0) {
+            wlAudio->clock += buffersize / ((double) (wlAudio->sample_rate * 2 * 2));
+            if (wlAudio->clock - wlAudio->last_time >= 0.1) {
+                wlAudio->last_time = wlAudio->clock;
+                //回调应用层
+                wlAudio->callJava->onCallTimeInfo(CHILD_THREAD, wlAudio->clock, wlAudio->duration);
+            }
+            if (wlAudio->isRecordPcm) {
+                wlAudio->callJava->onCallPCMToAAC(CHILD_THREAD, buffersize * 2 * 2,
+                                                  wlAudio->sampleBuffer);
+            }
+            wlAudio->callJava->onCallVolumnDB(CHILD_THREAD,
+                                              wlAudio->getPCMdB(
+                                                      reinterpret_cast<char *>(wlAudio->sampleBuffer),
+                                                      buffersize * 4));
+            (*wlAudio->pcmBufferQueue)->Enqueue(wlAudio->pcmBufferQueue,
+                                                (char *) wlAudio->sampleBuffer, buffersize * 2 * 2);
+        }
     }
-    return rate;
 }
 
 void SimpleAudio::initOpenSLES() {
@@ -268,13 +254,13 @@ void SimpleAudio::initOpenSLES() {
 //    得到接口后调用  获取Player接口
     (*pcmPlayerObject)->GetInterface(pcmPlayerObject, SL_IID_PLAY, &pcmPlayerPlay);
 //   获取声音接口
-    (*pcmPlayerObject)->GetInterface(pcmPlayerObject, SL_IID_VOLUME, &pcmPlayerVolume);
+    (*pcmPlayerObject)->GetInterface(pcmPlayerObject, SL_IID_VOLUME, &pcmVolumePlay);
     //获取声道接口
     (*pcmPlayerObject)->GetInterface(pcmPlayerObject, SL_IID_MUTESOLO, &pcmPlayerMuteSolo);
 
 //    注册回调缓冲区 获取缓冲队列接口
     (*pcmPlayerObject)->GetInterface(pcmPlayerObject, SL_IID_BUFFERQUEUE, &pcmBufferQueue);
-    setVolumn(volumnPercent);
+    setVolume(volumePercent);
     setMute(mute);
     //缓冲接口回调
     (*pcmBufferQueue)->RegisterCallback(pcmBufferQueue, pcmBufferCallBack, this);
@@ -283,6 +269,54 @@ void SimpleAudio::initOpenSLES() {
     pcmBufferCallBack(pcmBufferQueue, this);
 
 
+}
+
+unsigned int SimpleAudio::getCurrentSampleRateForOpenSles(int sample_rate) {
+    int rate = 0;
+    switch (sample_rate) {
+        case 8000:
+            rate = SL_SAMPLINGRATE_8;
+            break;
+        case 11025:
+            rate = SL_SAMPLINGRATE_11_025;
+            break;
+        case 12000:
+            rate = SL_SAMPLINGRATE_12;
+            break;
+        case 16000:
+            rate = SL_SAMPLINGRATE_16;
+            break;
+        case 22050:
+            rate = SL_SAMPLINGRATE_22_05;
+            break;
+        case 24000:
+            rate = SL_SAMPLINGRATE_24;
+            break;
+        case 32000:
+            rate = SL_SAMPLINGRATE_32;
+            break;
+        case 44100:
+            rate = SL_SAMPLINGRATE_44_1;
+            break;
+        case 48000:
+            rate = SL_SAMPLINGRATE_48;
+            break;
+        case 64000:
+            rate = SL_SAMPLINGRATE_64;
+            break;
+        case 88200:
+            rate = SL_SAMPLINGRATE_88_2;
+            break;
+        case 96000:
+            rate = SL_SAMPLINGRATE_96;
+            break;
+        case 192000:
+            rate = SL_SAMPLINGRATE_192;
+            break;
+        default:
+            rate = SL_SAMPLINGRATE_44_1;
+    }
+    return rate;
 }
 
 void SimpleAudio::pause() {
@@ -337,8 +371,8 @@ void SimpleAudio::release() {
     if (playStatus != NULL) {
         playStatus = NULL;
     }
-    if (calljava != NULL) {
-        calljava = NULL;
+    if (callJava != NULL) {
+        callJava = NULL;
     }
 
 }
@@ -349,27 +383,27 @@ void SimpleAudio::stop() {
     }
 }
 
-void SimpleAudio::setVolumn(int percent) {
-    volumnPercent = percent;
-    if (pcmPlayerVolume != NULL) {
+void SimpleAudio::setVolume(int percent) {
+    volumePercent = percent;
+    if (pcmVolumePlay != NULL) {
         if (percent > 30) {
-            (*pcmPlayerVolume)->SetVolumeLevel(pcmPlayerVolume, (100 - percent) * -20);
+            (*pcmVolumePlay)->SetVolumeLevel(pcmVolumePlay, (100 - percent) * -20);
         } else if (percent > 25) {
-            (*pcmPlayerVolume)->SetVolumeLevel(pcmPlayerVolume, (100 - percent) * -22);
+            (*pcmVolumePlay)->SetVolumeLevel(pcmVolumePlay, (100 - percent) * -22);
         } else if (percent > 20) {
-            (*pcmPlayerVolume)->SetVolumeLevel(pcmPlayerVolume, (100 - percent) * -25);
+            (*pcmVolumePlay)->SetVolumeLevel(pcmVolumePlay, (100 - percent) * -25);
         } else if (percent > 15) {
-            (*pcmPlayerVolume)->SetVolumeLevel(pcmPlayerVolume, (100 - percent) * -28);
+            (*pcmVolumePlay)->SetVolumeLevel(pcmVolumePlay, (100 - percent) * -28);
         } else if (percent > 10) {
-            (*pcmPlayerVolume)->SetVolumeLevel(pcmPlayerVolume, (100 - percent) * -30);
+            (*pcmVolumePlay)->SetVolumeLevel(pcmVolumePlay, (100 - percent) * -30);
         } else if (percent > 5) {
-            (*pcmPlayerVolume)->SetVolumeLevel(pcmPlayerVolume, (100 - percent) * -34);
+            (*pcmVolumePlay)->SetVolumeLevel(pcmVolumePlay, (100 - percent) * -34);
         } else if (percent > 3) {
-            (*pcmPlayerVolume)->SetVolumeLevel(pcmPlayerVolume, (100 - percent) * -37);
+            (*pcmVolumePlay)->SetVolumeLevel(pcmVolumePlay, (100 - percent) * -37);
         } else if (percent > 0) {
-            (*pcmPlayerVolume)->SetVolumeLevel(pcmPlayerVolume, (100 - percent) * -40);
+            (*pcmVolumePlay)->SetVolumeLevel(pcmVolumePlay, (100 - percent) * -40);
         } else {
-            (*pcmPlayerVolume)->SetVolumeLevel(pcmPlayerVolume, (100 - percent) * -100);
+            (*pcmVolumePlay)->SetVolumeLevel(pcmVolumePlay, (100 - percent) * -100);
         }
     }
 }
@@ -396,47 +430,12 @@ void SimpleAudio::setMute(int mute) {
 
 }
 
-void SimpleAudio::setTune(float tune) {
-    this->tune = tune;
+void SimpleAudio::setTune(float pitch) {
+    this->tune = pitch;
     if (soundTouch != NULL) {
-        soundTouch->setPitch(tune);
+        soundTouch->setPitch(pitch);
     }
 }
-
-int SimpleAudio::getSoundTouchData() {
-
-    while (playStatus != NULL && !playStatus->exit) {
-        out_buffer = NULL;
-        if (finished) {
-            finished = false;
-            data_size = resampleAudio(reinterpret_cast<void **>(&out_buffer));
-            if (data_size > 0) {
-                for (int i = 0; i < data_size / 2 + 1; i++) {
-                    sampleBuffer[i] = (out_buffer[i * 2] | ((out_buffer[i * 2 + 1]) << 8));
-                }
-                soundTouch->putSamples(sampleBuffer, nb);
-                num = soundTouch->receiveSamples(sampleBuffer, data_size / 4);
-            } else {
-                soundTouch->flush();
-            }
-        }
-        if (num == 0) {
-            finished = true;
-            continue;
-        } else {
-            if (out_buffer == NULL) {
-                num = soundTouch->receiveSamples(sampleBuffer, data_size / 4);
-                if (num == 0) {
-                    finished = true;
-                    continue;
-                }
-            }
-            return num;
-        }
-    }
-    return 0;
-}
-
 
 void SimpleAudio::setSpeed(float speed) {
     this->speed = speed;
@@ -445,24 +444,23 @@ void SimpleAudio::setSpeed(float speed) {
     }
 }
 
-int SimpleAudio::getPCMdB(char *pcmData, size_t pcmsize) {
+int SimpleAudio::getPCMdB(char *pcmcata, size_t pcmsize) {
     int db = 0;
-    short int perValue = 0;
+    short int pervalue = 0;
     double sum = 0;
     for (int i = 0; i < pcmsize; i += 2) {
-        memcpy(&perValue, pcmData + i, 2);
-        sum += abs(perValue);
+        memcpy(&pervalue, pcmcata + i, 2);
+        sum += abs(pervalue);
     }
     sum = sum / (pcmsize / 2);
-
     if (sum > 0) {
         db = (int) 20.0 * log10(sum);
     }
-
     return db;
 }
 
 void SimpleAudio::startStopRecord(bool start) {
+
     this->isRecordPcm = start;
 
 }

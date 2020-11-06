@@ -30,7 +30,7 @@ public :
     AVCodecContext *avCodecContext = NULL;
     int streamIndex = -1;
     PlayStatus *playStatus = NULL;
-    CallJava *calljava = NULL;
+    CallJava *callJava = NULL;
     SimpleQueue *queue = NULL;
 
     pthread_t thread_play;
@@ -46,7 +46,7 @@ public :
     double last_time;
     double duration;
     AVRational time_base;
-    int volumnPercent = 100;
+    int volumePercent = 100;
     int mute = 2;
 
 
@@ -61,7 +61,7 @@ public :
     //pcm
     SLObjectItf pcmPlayerObject = NULL;
     SLPlayItf pcmPlayerPlay = NULL;
-    SLVolumeItf pcmPlayerVolume = NULL;
+    SLVolumeItf pcmVolumePlay = NULL;
     SLMuteSoloItf pcmPlayerMuteSolo = NULL;
 
     //缓冲器队列接口
@@ -99,7 +99,7 @@ public :
 
     void release();
 
-    void setVolumn(int percent);
+    void setVolume(int percent);
 
     void setMute(int mute);
 

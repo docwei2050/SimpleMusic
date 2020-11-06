@@ -148,6 +148,7 @@ public class MusicPlayer {
 
     public native void n_setTune(float tune);
 
+    private native void n_startstoprecord(boolean start);
 
     //C++在子线程中回调这个方法
     public void onCallPrepared() {
@@ -208,7 +209,7 @@ public class MusicPlayer {
     }
 
     public void stop() {
-        duration=-1;
+        duration = -1;
         stopRecord();
         n_stop();
     }
@@ -255,58 +256,60 @@ public class MusicPlayer {
 
     private native int n_samplerate();
 
-    private native void n_startstopRecord(boolean start);
 
-
-    public void startRecord(File outFile) {
-        if (!initmeiacodec) {
+    public void startRecord(File outfile) {
+        if (!initmediacodec) {
             if (n_samplerate() > 0) {
-                initmeiacodec = true;
-                initMediacodec(n_samplerate(), outFile);
-                n_startstopRecord(true);
+                initmediacodec = true;
+                initMediacodec(n_samplerate(), outfile);
+                n_startstoprecord(true);
                 Log.e("player", "开始录制");
             }
         }
     }
 
     public void stopRecord() {
-        if (initmeiacodec) {
-            n_startstopRecord(false);
+        if (initmediacodec) {
+            n_startstoprecord(false);
             releaseMedicacodec();
-            Log.e("player", "停止录制");
+            Log.e("player", "完成录制");
         }
     }
+
     public void pauseRecord() {
-        n_startstopRecord(false);
+        n_startstoprecord(false);
         Log.e("player", "暂停录制");
     }
 
     public void resumeRecord() {
-        n_startstopRecord(true);
+        n_startstoprecord(true);
         Log.e("player", "继续录制");
     }
 
-    MediaFormat encoderFormat = null;
-    MediaCodec encoder = null;
-    FileOutputStream outputStream = null;
-    MediaCodec.BufferInfo info = null;
-    int perpcmsize = 0;
-    byte[] outByteBuffer = null;
-    int aacsamplerate = 4;
+
+    private static boolean initmediacodec = false;
+
+    //mediacodec
+
+    private MediaFormat encoderFormat = null;
+    private MediaCodec encoder = null;
+    private FileOutputStream outputStream = null;
+    private MediaCodec.BufferInfo info = null;
+    private int perpcmsize = 0;
+    private byte[] outByteBuffer = null;
+    private int aacsamplerate = 4;
 
     private void initMediacodec(int samperate, File outfile) {
         try {
             aacsamplerate = getADTSsamplerate(samperate);
-            encoderFormat = MediaFormat.createAudioFormat(MediaFormat.MIMETYPE_AUDIO_AAC,
-                    samperate, 2);
+            encoderFormat = MediaFormat.createAudioFormat(MediaFormat.MIMETYPE_AUDIO_AAC, samperate, 2);
             encoderFormat.setInteger(MediaFormat.KEY_BIT_RATE, 96000);
-            encoderFormat.setInteger(MediaFormat.KEY_AAC_PROFILE,
-                    MediaCodecInfo.CodecProfileLevel.AACObjectLC);
-            encoderFormat.setInteger(MediaFormat.KEY_MAX_INPUT_SIZE, 4096*2);
+            encoderFormat.setInteger(MediaFormat.KEY_AAC_PROFILE, MediaCodecInfo.CodecProfileLevel.AACObjectLC);
+            encoderFormat.setInteger(MediaFormat.KEY_MAX_INPUT_SIZE, 4096 * 2);
             encoder = MediaCodec.createEncoderByType(MediaFormat.MIMETYPE_AUDIO_AAC);
             info = new MediaCodec.BufferInfo();
             if (encoder == null) {
-                Log.d("player", "craete encoder wrong");
+                Log.e("player", "craete encoder wrong");
                 return;
             }
             encoder.configure(encoderFormat, null, null, MediaCodec.CONFIGURE_FLAG_ENCODE);
@@ -321,24 +324,28 @@ public class MusicPlayer {
         if (buffer != null && encoder != null) {
             int inputBufferindex = encoder.dequeueInputBuffer(0);
             if (inputBufferindex >= 0) {
-                ByteBuffer byteBuffer = encoder.getInputBuffer(inputBufferindex);
+                ByteBuffer byteBuffer = encoder.getInputBuffers()[inputBufferindex];
                 byteBuffer.clear();
-                System.out.println(buffer.length+"-----------");
                 byteBuffer.put(buffer);
                 encoder.queueInputBuffer(inputBufferindex, 0, size, 0, 0);
             }
+
             int index = encoder.dequeueOutputBuffer(info, 0);
             while (index >= 0) {
                 try {
                     perpcmsize = info.size + 7;
                     outByteBuffer = new byte[perpcmsize];
+
                     ByteBuffer byteBuffer = encoder.getOutputBuffers()[index];
                     byteBuffer.position(info.offset);
                     byteBuffer.limit(info.offset + info.size);
+
                     addADtsHeader(outByteBuffer, perpcmsize, aacsamplerate);
+
                     byteBuffer.get(outByteBuffer, 7, info.size);
                     byteBuffer.position(info.offset);
                     outputStream.write(outByteBuffer, 0, perpcmsize);
+
                     encoder.releaseOutputBuffer(index, false);
                     index = encoder.dequeueOutputBuffer(info, 0);
                     outByteBuffer = null;
@@ -352,9 +359,11 @@ public class MusicPlayer {
 
     private void addADtsHeader(byte[] packet, int packetLen, int samplerate) {
         int profile = 2; // AAC LC
-        int freqIdx = samplerate; // samplerate int chanCfg = 2; // CPE
-        int chanCfg = 2;
-        packet[0] = (byte) 0xFF; // 0xFFF(12bit) 这里只取了8位，所以还差4位放到下一个里面 packet[1] = (byte) 0xF9; // 第一个t位放F
+        int freqIdx = samplerate; // samplerate
+        int chanCfg = 2; // CPE
+
+        packet[0] = (byte) 0xFF; // 0xFFF(12bit) 这里只取了8位，所以还差4位放到下一个里面
+        packet[1] = (byte) 0xF9; // 第一个t位放F
         packet[2] = (byte) (((profile - 1) << 6) + (freqIdx << 2) + (chanCfg >> 2));
         packet[3] = (byte) (((chanCfg & 3) << 6) + (packetLen >> 11));
         packet[4] = (byte) ((packetLen & 0x7FF) >> 3);
@@ -379,7 +388,6 @@ public class MusicPlayer {
                 break;
             case 44100:
                 rate = 4;
-
                 break;
             case 32000:
                 rate = 5;
@@ -421,7 +429,8 @@ public class MusicPlayer {
             encoder = null;
             encoderFormat = null;
             info = null;
-            initmeiacodec = false;
+            initmediacodec = false;
+
             Log.e("player", "录制完成...");
         } catch (IOException e) {
             e.printStackTrace();
@@ -430,7 +439,6 @@ public class MusicPlayer {
                 try {
                     outputStream.close();
                 } catch (IOException e) {
-
                     e.printStackTrace();
                 }
                 outputStream = null;

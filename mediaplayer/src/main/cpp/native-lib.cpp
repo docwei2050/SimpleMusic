@@ -133,7 +133,7 @@ Java_com_docwei_mediaplayer_MusicPlayer_n_1samplerate(JNIEnv *env, jobject thiz)
     }
 }extern "C"
 JNIEXPORT void JNICALL
-Java_com_docwei_mediaplayer_MusicPlayer_n_1startstopRecord(JNIEnv *env, jobject thiz,
+Java_com_docwei_mediaplayer_MusicPlayer_n_1startstoprecord(JNIEnv *env, jobject thiz,
                                                            jboolean start) {
     if (fFmpegDecode != NULL) {
         fFmpegDecode->startStopRecord(start);
