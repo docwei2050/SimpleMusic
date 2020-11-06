@@ -216,4 +216,57 @@
             android:textColor="#FF9800"
             android:textStyle="bold" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="#5B5D5E"
+            android:onClick="start_record"
+            android:padding="10dp"
+            android:text="开始录制"
+            android:textColor="#FF9800"
+            android:textStyle="bold" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="#5B5D5E"
+            android:onClick="pause_record"
+            android:padding="10dp"
+            android:text="暂停录制"
+            android:textColor="#FFC107"
+            android:textStyle="bold" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="#5B5D5E"
+            android:onClick="continue_record"
+            android:padding="10dp"
+            android:text="继续录制"
+            android:textColor="#FF9800"
+            android:textStyle="bold" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="#5B5D5E"
+            android:onClick="stop_record"
+            android:padding="10dp"
+            android:text="停止录制"
+            android:textColor="#FF9800"
+            android:textStyle="bold" />
+    </LinearLayout>
 </LinearLayout>

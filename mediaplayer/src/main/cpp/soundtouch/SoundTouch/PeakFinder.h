@@ -9,6 +9,13 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 //
+// Last changed  : $Date: 2011-12-30 22:33:46 +0200 (pe, 30 joulu 2011) $
+// File revision : $Revision: 4 $
+//
+// $Id: PeakFinder.h 132 2011-12-30 20:33:46Z oparviai $
+//
+////////////////////////////////////////////////////////////////////////////////
+//
 // License :
 //
 //  SoundTouch audio processing library
@@ -44,8 +51,8 @@ protected:
 
     /// Calculates the mass center between given vector items.
     double calcMassCenter(const float *data, ///< Data vector.
-                         int firstPos,      ///< Index of first vector item belonging to the peak.
-                         int lastPos        ///< Index of last vector item belonging to the peak.
+                         int firstPos,      ///< Index of first vector item beloging to the peak.
+                         int lastPos        ///< Index of last vector item beloging to the peak.
                          ) const;
 
     /// Finds the data vector index where the monotoniously decreasing signal crosses the

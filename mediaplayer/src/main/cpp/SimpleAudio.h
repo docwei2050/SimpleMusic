@@ -109,6 +109,10 @@ public :
 
     //pcm数据是uint_8 而soundTouch至少是uint_16
     int getSoundTouchData();
+
+    int getPCMdB(char* pcmData,size_t pcmsize);
+
+    void startStopRecord(bool start);
 };
 
 

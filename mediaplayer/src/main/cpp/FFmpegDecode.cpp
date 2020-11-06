@@ -270,3 +270,16 @@ void FFmpegDecode::setTune(float tune) {
         audio->setTune(tune);
     }
 }
+
+int FFmpegDecode::getSampleRate() {
+    if(audio!=NULL){
+        return audio->avCodecContext->sample_rate;
+    }
+    return 0;
+}
+
+void FFmpegDecode::startStopRecord(bool start) {
+    if(audio!=NULL){
+        audio->startStopRecord(start);
+    }
+}

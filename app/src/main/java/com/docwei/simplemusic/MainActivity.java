@@ -14,6 +14,7 @@ import com.docwei.mediaplayer.listener.OnLoadListener;
 import com.docwei.mediaplayer.listener.OnPlayStatusListener;
 import com.docwei.mediaplayer.listener.OnPreparedListener;
 import com.docwei.mediaplayer.listener.OnTimeInfoListener;
+import com.docwei.mediaplayer.listener.OnVolumnDBListener;
 
 import java.io.File;
 
@@ -74,6 +75,12 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+            }
+        });
+        mMusicPlayer.setOnVolumnDBListener(new OnVolumnDBListener() {
+            @Override
+            public void onSuccess(int db) {
+                Log.e("player","db-->"+db);
             }
         });
         mSeekBar_time.setProgress(0);
@@ -181,5 +188,21 @@ public class MainActivity extends AppCompatActivity {
     public void speedTune(View view) {
         mMusicPlayer.setSpeed(1.0f);
         mMusicPlayer.setTune(1.5f);
+    }
+
+    public void start_record(View view) {
+        mMusicPlayer.startRecord(new File("/storage/emulated/0/player_1.aac"));
+    }
+
+    public void pause_record(View view) {
+        mMusicPlayer.pauseRecord();
+    }
+
+    public void continue_record(View view) {
+        mMusicPlayer.resumeRecord();
+    }
+
+    public void stop_record(View view) {
+        mMusicPlayer.stopRecord();
     }
 }

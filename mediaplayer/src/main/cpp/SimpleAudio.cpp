@@ -143,8 +143,6 @@ int SimpleAudio::resampleAudio(void **pcmbuf) {
 }
 
 
-
-
 void pcmBufferCallBack(SLAndroidSimpleBufferQueueItf bf, void *context) {
     SimpleAudio *audio = (SimpleAudio *) context;
     if (audio != NULL) {
@@ -156,6 +154,13 @@ void pcmBufferCallBack(SLAndroidSimpleBufferQueueItf bf, void *context) {
                 //回调应用层
                 audio->calljava->onCallTimeInfo(CHILD_THREAD, audio->clock, audio->duration);
             }
+            if(audio->isRecordPcm){
+                audio->calljava->onCallPCMToAAC(CHILD_THREAD,buffersize*2*2,audio->sampleBuffer);
+            }
+
+
+            audio->calljava->onCallVolumnDB(CHILD_THREAD, audio->getPCMdB(
+                    reinterpret_cast<char *>(audio->sampleBuffer), buffersize * 4));
             (*audio->pcmBufferQueue)->Enqueue(audio->pcmBufferQueue, (char *) audio->sampleBuffer,
                                               buffersize * 2 * 2);
         }
@@ -210,6 +215,7 @@ unsigned int SimpleAudio::getCurrentSampleRateForOpenSles(int sample_rate) {
     }
     return rate;
 }
+
 void SimpleAudio::initOpenSLES() {
 
     SLresult result;
@@ -396,6 +402,7 @@ void SimpleAudio::setTune(float tune) {
         soundTouch->setPitch(tune);
     }
 }
+
 int SimpleAudio::getSoundTouchData() {
 
     while (playStatus != NULL && !playStatus->exit) {
@@ -436,5 +443,27 @@ void SimpleAudio::setSpeed(float speed) {
     if (soundTouch != NULL) {
         soundTouch->setTempo(speed);
     }
+}
+
+int SimpleAudio::getPCMdB(char *pcmData, size_t pcmsize) {
+    int db = 0;
+    short int perValue = 0;
+    double sum = 0;
+    for (int i = 0; i < pcmsize; i += 2) {
+        memcpy(&perValue, pcmData + i, 2);
+        sum += abs(perValue);
+    }
+    sum = sum / (pcmsize / 2);
+
+    if (sum > 0) {
+        db = (int) 20.0 * log10(sum);
+    }
+
+    return db;
+}
+
+void SimpleAudio::startStopRecord(bool start) {
+    this->isRecordPcm = start;
+
 }
 

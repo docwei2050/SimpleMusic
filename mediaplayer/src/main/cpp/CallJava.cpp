@@ -20,6 +20,8 @@ CallJava::CallJava(JavaVM *javaVM, JNIEnv *env, jobject *obj) {
     jmid_timeInfo = env->GetMethodID(jlz, "onCallTimeInfo", "(II)V");
     jmid_error = env->GetMethodID(jlz, "onCallError", "(ILjava/lang/String;)V");
     jmid_complete = env->GetMethodID(jlz, "onCallComplete", "()V");
+    jmid_db = env->GetMethodID(jlz, "onCallDB", "(I)V");
+    jmid_pcmtoaac = env->GetMethodID(jlz, "onCallEncodecPcmToAAC", "(I[B)V");
 
 }
 
@@ -112,3 +114,40 @@ void CallJava::onCallComplete(int type) {
     }
 
 }
+
+void CallJava::onCallVolumnDB(int type, int db) {
+    if (type == MAIN_THREAD) {
+        env->CallVoidMethod(jobj, jmid_db, db);
+
+
+    } else if (type == CHILD_THREAD) {
+        JNIEnv *jniEnv;
+        if (javaVm->AttachCurrentThread(&jniEnv, 0) != JNI_OK) {
+            return;
+        }
+        jniEnv->CallVoidMethod(jobj, jmid_db, db);
+        javaVm->DetachCurrentThread();
+
+    }
+}
+
+void CallJava::onCallPCMToAAC(int type, int size, void *buffer) {
+    if (type == MAIN_THREAD) {
+        jbyteArray jbuffer = env->NewByteArray(size);
+        env->SetByteArrayRegion(jbuffer, 0, size, static_cast<const jbyte *>(buffer));
+        env->CallVoidMethod(jobj, jmid_pcmtoaac, size, jbuffer);
+        env->DeleteLocalRef(jbuffer);
+    } else if (type == CHILD_THREAD) {
+        JNIEnv *jniEnv;
+        if (javaVm->AttachCurrentThread(&jniEnv, 0) != JNI_OK) {
+            return;
+        }
+        jbyteArray jbuffer = jniEnv->NewByteArray(size);
+        jniEnv->SetByteArrayRegion(jbuffer, 0, size, static_cast<const jbyte *>(buffer));
+        jniEnv->CallVoidMethod(jobj, jmid_pcmtoaac, size, jbuffer);
+        jniEnv->DeleteLocalRef(jbuffer);
+        javaVm->DetachCurrentThread();
+
+    }
+}
+

@@ -11,6 +11,13 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 //
+// Last changed  : $Date: 2015-02-21 23:24:29 +0200 (la, 21 helmi 2015) $
+// File revision : $Revision: 4 $
+//
+// $Id: FIRFilter.h 202 2015-02-21 21:24:29Z oparviai $
+//
+////////////////////////////////////////////////////////////////////////////////
+//
 // License :
 //
 //  SoundTouch audio processing library
@@ -57,7 +64,6 @@ protected:
 
     // Memory for filter coefficients
     SAMPLETYPE *filterCoeffs;
-    SAMPLETYPE *filterCoeffsStereo;
 
     virtual uint evaluateFilterStereo(SAMPLETYPE *dest, 
                                       const SAMPLETYPE *src, 

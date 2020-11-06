@@ -11,6 +11,13 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 //
+// Last changed  : $Date: 2014-01-07 20:24:28 +0200 (ti, 07 tammi 2014) $
+// File revision : $Revision: 4 $
+//
+// $Id: cpu_detect_x86.cpp 183 2014-01-07 18:24:28Z oparviai $
+//
+////////////////////////////////////////////////////////////////////////////////
+//
 // License :
 //
 //  SoundTouch audio processing library
@@ -66,6 +73,7 @@ void disableExtensions(uint dwDisableMask)
 {
     _dwDisabledISA = dwDisableMask;
 }
+
 
 
 /// Checks which instruction set extensions are supported by the CPU.

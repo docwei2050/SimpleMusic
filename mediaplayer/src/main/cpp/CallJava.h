@@ -24,6 +24,8 @@ public:
     jmethodID jmid_timeInfo;
     jmethodID jmid_error;
     jmethodID jmid_complete;
+    jmethodID jmid_db;
+    jmethodID jmid_pcmtoaac;
 
 public :
     CallJava(JavaVM *javaVM, JNIEnv *env, jobject *obj);
@@ -35,6 +37,9 @@ public :
     void onCallTimeInfo(int type,int curr,int total);
     void onCallError(int type,int code,char * msg);
     void onCallComplete(int type);
+    void onCallVolumnDB(int type,int db);
+
+    void onCallPCMToAAC(int type,int size, void * buffer);
 
 };
 

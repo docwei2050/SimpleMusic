@@ -1,5 +1,8 @@
 package com.docwei.mediaplayer;
 
+import android.media.MediaCodec;
+import android.media.MediaCodecInfo;
+import android.media.MediaFormat;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -10,6 +13,12 @@ import com.docwei.mediaplayer.listener.OnLoadListener;
 import com.docwei.mediaplayer.listener.OnPlayStatusListener;
 import com.docwei.mediaplayer.listener.OnPreparedListener;
 import com.docwei.mediaplayer.listener.OnTimeInfoListener;
+import com.docwei.mediaplayer.listener.OnVolumnDBListener;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
 
 /**
  * Created by liwk on 2020/9/9.
@@ -34,6 +43,7 @@ public class MusicPlayer {
     private OnTimeInfoListener mOnTimeInfoListener;
     private OnErrorListener mOnErrorListener;
     private OnCompleteListener mOnCompleteListener;
+    private OnVolumnDBListener mOnVolumnDBListener;
     private boolean playNext = false;
     private int duration = -1;
     private int volumnPercent = 100;
@@ -71,6 +81,10 @@ public class MusicPlayer {
 
     public void setOnCompleteListener(OnCompleteListener onCompleteListener) {
         mOnCompleteListener = onCompleteListener;
+    }
+
+    public void setOnVolumnDBListener(OnVolumnDBListener onVolumnDBListener) {
+        mOnVolumnDBListener = onVolumnDBListener;
     }
 
     public void setVolumnPercent(int percent) {
@@ -129,7 +143,9 @@ public class MusicPlayer {
     public native void n_volumn(int percent);
 
     public native void n_mute(int mute);
+
     public native void n_setSpeed(float speed);
+
     public native void n_setTune(float tune);
 
 
@@ -164,6 +180,13 @@ public class MusicPlayer {
         }
     }
 
+    public void onCallDB(int db) {
+        if (mOnVolumnDBListener != null) {
+            mOnVolumnDBListener.onSuccess(db);
+        }
+    }
+
+
     public void onCallNext() {
         if (playNext) {
             playNext = false;
@@ -185,6 +208,8 @@ public class MusicPlayer {
     }
 
     public void stop() {
+        duration=-1;
+        stopRecord();
         n_stop();
     }
 
@@ -224,4 +249,194 @@ public class MusicPlayer {
         this.tune = tune;
         n_setTune(tune);
     }
+
+
+    private static boolean initmeiacodec = false;
+
+    private native int n_samplerate();
+
+    private native void n_startstopRecord(boolean start);
+
+
+    public void startRecord(File outFile) {
+        if (!initmeiacodec) {
+            if (n_samplerate() > 0) {
+                initmeiacodec = true;
+                initMediacodec(n_samplerate(), outFile);
+                n_startstopRecord(true);
+                Log.e("player", "开始录制");
+            }
+        }
+    }
+
+    public void stopRecord() {
+        if (initmeiacodec) {
+            n_startstopRecord(false);
+            releaseMedicacodec();
+            Log.e("player", "停止录制");
+        }
+    }
+    public void pauseRecord() {
+        n_startstopRecord(false);
+        Log.e("player", "暂停录制");
+    }
+
+    public void resumeRecord() {
+        n_startstopRecord(true);
+        Log.e("player", "继续录制");
+    }
+
+    MediaFormat encoderFormat = null;
+    MediaCodec encoder = null;
+    FileOutputStream outputStream = null;
+    MediaCodec.BufferInfo info = null;
+    int perpcmsize = 0;
+    byte[] outByteBuffer = null;
+    int aacsamplerate = 4;
+
+    private void initMediacodec(int samperate, File outfile) {
+        try {
+            aacsamplerate = getADTSsamplerate(samperate);
+            encoderFormat = MediaFormat.createAudioFormat(MediaFormat.MIMETYPE_AUDIO_AAC,
+                    samperate, 2);
+            encoderFormat.setInteger(MediaFormat.KEY_BIT_RATE, 96000);
+            encoderFormat.setInteger(MediaFormat.KEY_AAC_PROFILE,
+                    MediaCodecInfo.CodecProfileLevel.AACObjectLC);
+            encoderFormat.setInteger(MediaFormat.KEY_MAX_INPUT_SIZE, 4096*2);
+            encoder = MediaCodec.createEncoderByType(MediaFormat.MIMETYPE_AUDIO_AAC);
+            info = new MediaCodec.BufferInfo();
+            if (encoder == null) {
+                Log.d("player", "craete encoder wrong");
+                return;
+            }
+            encoder.configure(encoderFormat, null, null, MediaCodec.CONFIGURE_FLAG_ENCODE);
+            outputStream = new FileOutputStream(outfile);
+            encoder.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void onCallEncodecPcmToAAC(int size, byte[] buffer) {
+        if (buffer != null && encoder != null) {
+            int inputBufferindex = encoder.dequeueInputBuffer(0);
+            if (inputBufferindex >= 0) {
+                ByteBuffer byteBuffer = encoder.getInputBuffer(inputBufferindex);
+                byteBuffer.clear();
+                System.out.println(buffer.length+"-----------");
+                byteBuffer.put(buffer);
+                encoder.queueInputBuffer(inputBufferindex, 0, size, 0, 0);
+            }
+            int index = encoder.dequeueOutputBuffer(info, 0);
+            while (index >= 0) {
+                try {
+                    perpcmsize = info.size + 7;
+                    outByteBuffer = new byte[perpcmsize];
+                    ByteBuffer byteBuffer = encoder.getOutputBuffers()[index];
+                    byteBuffer.position(info.offset);
+                    byteBuffer.limit(info.offset + info.size);
+                    addADtsHeader(outByteBuffer, perpcmsize, aacsamplerate);
+                    byteBuffer.get(outByteBuffer, 7, info.size);
+                    byteBuffer.position(info.offset);
+                    outputStream.write(outByteBuffer, 0, perpcmsize);
+                    encoder.releaseOutputBuffer(index, false);
+                    index = encoder.dequeueOutputBuffer(info, 0);
+                    outByteBuffer = null;
+                    Log.e("player", "编码...");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private void addADtsHeader(byte[] packet, int packetLen, int samplerate) {
+        int profile = 2; // AAC LC
+        int freqIdx = samplerate; // samplerate int chanCfg = 2; // CPE
+        int chanCfg = 2;
+        packet[0] = (byte) 0xFF; // 0xFFF(12bit) 这里只取了8位，所以还差4位放到下一个里面 packet[1] = (byte) 0xF9; // 第一个t位放F
+        packet[2] = (byte) (((profile - 1) << 6) + (freqIdx << 2) + (chanCfg >> 2));
+        packet[3] = (byte) (((chanCfg & 3) << 6) + (packetLen >> 11));
+        packet[4] = (byte) ((packetLen & 0x7FF) >> 3);
+        packet[5] = (byte) (((packetLen & 7) << 5) + 0x1F);
+        packet[6] = (byte) 0xFC;
+    }
+
+    private int getADTSsamplerate(int samplerate) {
+        int rate = 4;
+        switch (samplerate) {
+            case 96000:
+                rate = 0;
+                break;
+            case 88200:
+                rate = 1;
+                break;
+            case 64000:
+                rate = 2;
+                break;
+            case 48000:
+                rate = 3;
+                break;
+            case 44100:
+                rate = 4;
+
+                break;
+            case 32000:
+                rate = 5;
+                break;
+            case 24000:
+                rate = 6;
+                break;
+            case 22050:
+                rate = 7;
+                break;
+            case 16000:
+                rate = 8;
+                break;
+            case 12000:
+                rate = 9;
+                break;
+            case 11025:
+                rate = 10;
+                break;
+            case 8000:
+                rate = 11;
+                break;
+            case 7350:
+                rate = 12;
+                break;
+        }
+        return rate;
+    }
+
+    private void releaseMedicacodec() {
+        if (encoder == null) {
+            return;
+        }
+        try {
+            outputStream.close();
+            outputStream = null;
+            encoder.stop();
+            encoder.release();
+            encoder = null;
+            encoderFormat = null;
+            info = null;
+            initmeiacodec = false;
+            Log.e("player", "录制完成...");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+
+                    e.printStackTrace();
+                }
+                outputStream = null;
+            }
+        }
+    }
+
+
 }

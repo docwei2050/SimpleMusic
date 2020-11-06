@@ -125,4 +125,17 @@ Java_com_docwei_mediaplayer_MusicPlayer_n_1setSpeed(JNIEnv *env, jobject thiz, j
     if (fFmpegDecode != NULL) {
         fFmpegDecode->setSpeed(speed);
     }
+}extern "C"
+JNIEXPORT jint JNICALL
+Java_com_docwei_mediaplayer_MusicPlayer_n_1samplerate(JNIEnv *env, jobject thiz) {
+    if (fFmpegDecode != NULL) {
+       return  fFmpegDecode->getSampleRate();
+    }
+}extern "C"
+JNIEXPORT void JNICALL
+Java_com_docwei_mediaplayer_MusicPlayer_n_1startstopRecord(JNIEnv *env, jobject thiz,
+                                                           jboolean start) {
+    if (fFmpegDecode != NULL) {
+        fFmpegDecode->startStopRecord(start);
+    }
 }

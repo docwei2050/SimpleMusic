@@ -13,6 +13,13 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 //
+// Last changed  : $Date: 2016-10-20 19:30:11 +0300 (to, 20 loka 2016) $
+// File revision : $Revision: 4 $
+//
+// $Id: TDStretch.h 244 2016-10-20 16:30:11Z oparviai $
+//
+////////////////////////////////////////////////////////////////////////////////
+//
 // License :
 //
 //  SoundTouch audio processing library
@@ -157,6 +164,7 @@ protected:
     void calcSeqParameters();
     void adaptNormalizer();
 
+
     /// Changes the tempo of the given sound samples.
     /// Returns amount of samples returned in the "output" buffer.
     /// The maximum amount of samples that can be returned at a time is set by
@@ -241,12 +249,14 @@ public:
         return seekWindowLength - overlapLength;
     }
 
+
 	/// return approximate initial input-output latency
 	int getLatency() const
 	{
 		return sampleReq;
 	}
 };
+
 
 
 // Implementation-specific class declarations:
