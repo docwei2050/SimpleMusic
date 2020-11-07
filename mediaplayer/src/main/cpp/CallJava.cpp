@@ -22,6 +22,8 @@ CallJava::CallJava(JavaVM *javaVM, JNIEnv *env, jobject *obj) {
     jmid_complete = env->GetMethodID(jlz, "onCallComplete", "()V");
     jmid_db = env->GetMethodID(jlz, "onCallDB", "(I)V");
     jmid_pcmtoaac = env->GetMethodID(jlz, "onCallEncodecPcmToAAC", "(I[B)V");
+    jmid_pcminfo = env->GetMethodID(jlz, "onCallPcmInfo", "([BI)V");
+    jmid_pcmrate = env->GetMethodID(jlz, "onCallPcmRate", "(I)V");
 
 }
 
@@ -146,6 +148,41 @@ void CallJava::onCallPCMToAAC(int type, int size, void *buffer) {
         jniEnv->SetByteArrayRegion(jbuffer, 0, size, static_cast<const jbyte *>(buffer));
         jniEnv->CallVoidMethod(jobj, jmid_pcmtoaac, size, jbuffer);
         jniEnv->DeleteLocalRef(jbuffer);
+        javaVm->DetachCurrentThread();
+
+    }
+}
+
+void CallJava::onCallPcmInfo(int type, void *buffer, int size) {
+    if (type == MAIN_THREAD) {
+        jbyteArray jbuffer = env->NewByteArray(size);
+        env->SetByteArrayRegion(jbuffer, 0, size, static_cast<const jbyte *>(buffer));
+        env->CallVoidMethod(jobj, jmid_pcminfo,  jbuffer,size);
+        env->DeleteLocalRef(jbuffer);
+    } else if (type == CHILD_THREAD) {
+        JNIEnv *jniEnv;
+        if (javaVm->AttachCurrentThread(&jniEnv, 0) != JNI_OK) {
+            return;
+        }
+        jbyteArray jbuffer = jniEnv->NewByteArray(size);
+        jniEnv->SetByteArrayRegion(jbuffer, 0, size, static_cast<const jbyte *>(buffer));
+        jniEnv->CallVoidMethod(jobj, jmid_pcminfo,  jbuffer,size);
+        jniEnv->DeleteLocalRef(jbuffer);
+        javaVm->DetachCurrentThread();
+
+    }
+
+}
+
+void CallJava::onCallPcmRate(int type, int sampleRate) {
+    if (type == MAIN_THREAD) {
+        env->CallVoidMethod(jobj, jmid_pcmrate, sampleRate);
+    } else if (type == CHILD_THREAD) {
+        JNIEnv *jniEnv;
+        if (javaVm->AttachCurrentThread(&jniEnv, 0) != JNI_OK) {
+            return;
+        }
+        jniEnv->CallVoidMethod(jobj, jmid_pcmrate, sampleRate);
         javaVm->DetachCurrentThread();
 
     }

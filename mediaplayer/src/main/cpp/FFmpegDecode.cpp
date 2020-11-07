@@ -74,6 +74,7 @@ void FFmpegDecode::decodeFFmpegThread() {
                 audio->duration = pFortmatCtx->duration / AV_TIME_BASE;
                 audio->time_base = pFortmatCtx->streams[i]->time_base;
                 duration = audio->duration;
+                callJava->onCallPcmRate(CHILD_THREAD,audio->sample_rate);
             }
         }
     }
@@ -141,7 +142,7 @@ void FFmpegDecode::start() {
             continue;
         }
 
-        if (audio->queue->getQueueSize() > 10) {
+        if (audio->queue->getQueueSize() > 8) {
             av_usleep(1000*100);
             continue;
         }
@@ -305,4 +306,16 @@ void FFmpegDecode::startStopRecord(bool start) {
         audio->startStopRecord(start);
     }
 
+}
+
+bool FFmpegDecode::cutAudioPlay(int startTime, int endTime, bool showPcm) {
+
+    if(startTime>=0&&endTime<=duration&&startTime<endTime){
+        audio->isCut=true;
+        audio->endTime=endTime;
+        audio->showPcm=showPcm;
+        seek(startTime);
+        return true;
+    }
+    return false;
 }

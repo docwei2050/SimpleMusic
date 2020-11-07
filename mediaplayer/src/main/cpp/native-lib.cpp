@@ -138,4 +138,13 @@ Java_com_docwei_mediaplayer_MusicPlayer_n_1startstoprecord(JNIEnv *env, jobject 
     if (fFmpegDecode != NULL) {
         fFmpegDecode->startStopRecord(start);
     }
+}extern "C"
+JNIEXPORT jboolean JNICALL
+Java_com_docwei_mediaplayer_MusicPlayer_n_1cutAudioPlay(JNIEnv *env, jobject thiz, jint start_time,
+                                                        jint end_time, jboolean show_pcm) {
+    if(fFmpegDecode!=NULL){
+        return fFmpegDecode->cutAudioPlay(start_time,end_time,show_pcm);
+    }
+     return false;
+
 }

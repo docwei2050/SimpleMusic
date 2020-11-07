@@ -11,6 +11,11 @@ SimpleAudio::SimpleAudio(PlayStatus *playStatus, int sample_rate, CallJava *call
     queue = new SimpleQueue(playStatus);
     buffer = (uint8_t *) av_malloc(sample_rate * 2 * 2);
 
+    this->isCut = false;
+    this->endTime = 0;
+    this->showPcm = false;
+
+
     sampleBuffer = static_cast<SAMPLETYPE *>(malloc(sample_rate * 2 * 2));
     soundTouch = new SoundTouch();
     soundTouch->setSampleRate(sample_rate);
@@ -203,6 +208,15 @@ void pcmBufferCallBack(SLAndroidSimpleBufferQueueItf bf, void *context) {
                                                       buffersize * 4));
             (*wlAudio->pcmBufferQueue)->Enqueue(wlAudio->pcmBufferQueue,
                                                 (char *) wlAudio->sampleBuffer, buffersize * 2 * 2);
+
+            wlAudio->callJava->onCallPcmInfo(CHILD_THREAD, wlAudio->sampleBuffer, buffersize * 4);
+
+            if (wlAudio->isCut) {
+                if (wlAudio->clock > wlAudio->endTime) {
+                    LOGE("裁剪退出啊")
+                    wlAudio->playStatus->exit = true;
+                }
+            }
         }
     }
 }

@@ -80,6 +80,13 @@ public :
     bool isRecordPcm=false;
     bool readFrameFinished=true;
 
+
+    bool isCut=false;
+    int endTime=0;
+    bool showPcm=false;
+
+
+
     SimpleAudio(PlayStatus *playStatus, int sample_rate, CallJava *callJava);
 
 

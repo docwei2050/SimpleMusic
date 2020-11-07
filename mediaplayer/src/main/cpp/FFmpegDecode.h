@@ -65,6 +65,8 @@ public:
 
     void startStopRecord(bool start);
 
+    bool cutAudioPlay(int startTime,int endTime,bool showPcm);
+
 
 };
 

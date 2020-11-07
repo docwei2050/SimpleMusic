@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.docwei.mediaplayer.bean.Mute;
 import com.docwei.mediaplayer.listener.OnCompleteListener;
+import com.docwei.mediaplayer.listener.OnPcmInfoListener;
 import com.docwei.mediaplayer.listener.OnErrorListener;
 import com.docwei.mediaplayer.listener.OnLoadListener;
 import com.docwei.mediaplayer.listener.OnPlayStatusListener;
@@ -46,6 +47,8 @@ public class MusicPlayer {
     private OnCompleteListener mOnCompleteListener;
     private OnVolumnDBListener mOnVolumnDBListener;
     private OnTimeRecordListener mOnTimeRecordListener;
+    private OnPcmInfoListener mOnPcmInfoListener;
+
     private boolean playNext = false;
     private int duration = -1;
     private int volumnPercent = 100;
@@ -54,6 +57,8 @@ public class MusicPlayer {
     private float tune;
     private double recordTime = 0;
     private double sampleRate = 0;
+
+
 
     public MusicPlayer() {
 
@@ -93,6 +98,10 @@ public class MusicPlayer {
 
     public void setOnTimeRecordListener(OnTimeRecordListener onTimeRecordListener) {
         mOnTimeRecordListener = onTimeRecordListener;
+    }
+
+    public void setOnPcmInfoListener(OnPcmInfoListener onCutAudioPlayListener) {
+        mOnPcmInfoListener = onCutAudioPlayListener;
     }
 
     public void setVolumnPercent(int percent) {
@@ -158,6 +167,9 @@ public class MusicPlayer {
 
     private native void n_startstoprecord(boolean start);
 
+    private native boolean n_cutAudioPlay(int startTime,int endTime,boolean showPcm);
+
+
     //C++在子线程中回调这个方法
     public void onCallPrepared() {
         if (mOnPreparedListener != null) {
@@ -184,6 +196,7 @@ public class MusicPlayer {
     }
 
     public void onCallComplete() {
+        stop();
         if (mOnCompleteListener != null) {
             mOnCompleteListener.onComplete();
         }
@@ -195,11 +208,32 @@ public class MusicPlayer {
         }
     }
 
-
     public void onCallNext() {
         if (playNext) {
             playNext = false;
             prepared();
+        }
+    }
+    public void onCallPcmInfo(byte[] buffer,int buffersize){
+        if(mOnPcmInfoListener!=null){
+            mOnPcmInfoListener.onPcmInfo(buffer,buffersize);
+        }
+    }
+    public void onCallPcmRate(int sampleRate){
+        if(mOnPcmInfoListener!=null){
+            mOnPcmInfoListener.onPcmRate(sampleRate,2,2);
+        }
+    }
+
+
+
+
+    public void cutAudioPlay(int startTime, int endTime, boolean showPcm){
+        if(n_cutAudioPlay(startTime,endTime,showPcm)){
+            start();
+        }else{
+            stop();
+            onCallError(2001,"cut audio params is error");
         }
     }
 
