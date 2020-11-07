@@ -11,6 +11,8 @@
 #include "SimpleQueue.h"
 #include "CallJava.h"
 #include "SoundTouch.h"
+#include "PcmBufferQueue.h"
+#include "PcmBean.h"
 
 extern "C" {
 #include <libavcodec/avcodec.h>
@@ -85,7 +87,9 @@ public :
     int endTime=0;
     bool showPcm=false;
 
-
+    pthread_t pcmCallBackThread;
+    PcmBufferQueue *bufferQueue = NULL;
+    int defaultPcmSize = 4096;
 
     SimpleAudio(PlayStatus *playStatus, int sample_rate, CallJava *callJava);
 
