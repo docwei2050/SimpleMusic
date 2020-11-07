@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         mMusicPlayer.setOnVolumnDBListener(new OnVolumnDBListener() {
             @Override
             public void onSuccess(int db) {
-                Log.e("player","db-->"+db);
+             //   Log.e("player","db-->"+db);
             }
         });
         mSeekBar_time.setProgress(0);
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void begin(View view) {
        // mMusicPlayer.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
-        File file = new File("/storage/emulated/0/$MuMu共享文件夹/1.mp3");
+        File file = new File("/storage/emulated/0/$MuMu共享文件夹/yun.ape");
          mMusicPlayer.setSource(file.getAbsolutePath());
         mMusicPlayer.prepared();
 

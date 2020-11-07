@@ -60,24 +60,28 @@ int SimpleAudio::resampleAudio(void **pcmbuf) {
                 callJava->onCallLoad(CHILD_THREAD, false);
             }
         }
-        avPacket = av_packet_alloc();
-        if (queue->getAvPakcet(avPacket) != 0) {
-            av_packet_free(&avPacket);
-            av_free(avPacket);
-            avPacket = NULL;
-            continue;
+        if (readFrameFinished) {
+            avPacket = av_packet_alloc();
+            if (queue->getAvPakcet(avPacket) != 0) {
+                av_packet_free(&avPacket);
+                av_free(avPacket);
+                avPacket = NULL;
+                continue;
+            }
+            ret = avcodec_send_packet(avCodecContext, avPacket);
+            if (ret != 0) {
+                av_packet_free(&avPacket);
+                av_free(avPacket);
+                avPacket = NULL;
+                continue;
+            }
         }
-        ret = avcodec_send_packet(avCodecContext, avPacket);
-        if (ret != 0) {
-            av_packet_free(&avPacket);
-            av_free(avPacket);
-            avPacket = NULL;
-            continue;
-        }
+
         avFrame = av_frame_alloc();
         ret = avcodec_receive_frame(avCodecContext, avFrame);
         if (ret == 0) {
 
+            readFrameFinished = false;
             if (avFrame->channels && avFrame->channel_layout == 0) {
                 avFrame->channel_layout = av_get_default_channel_layout(avFrame->channels);
             } else if (avFrame->channels == 0 && avFrame->channel_layout > 0) {
@@ -97,13 +101,11 @@ int SimpleAudio::resampleAudio(void **pcmbuf) {
                     NULL, NULL
             );
             if (!swr_ctx || swr_init(swr_ctx) < 0) {
-                av_packet_free(&avPacket);
-                av_free(avPacket);
-                avPacket = NULL;
                 av_frame_free(&avFrame);
                 av_free(avFrame);
                 avFrame = NULL;
                 swr_free(&swr_ctx);
+                readFrameFinished = true;
                 continue;
             }
 
@@ -132,6 +134,7 @@ int SimpleAudio::resampleAudio(void **pcmbuf) {
             swr_free(&swr_ctx);
             break;
         } else {
+            readFrameFinished = true;
             av_packet_free(&avPacket);
             av_free(avPacket);
             avPacket = NULL;

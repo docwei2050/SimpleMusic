@@ -141,7 +141,7 @@ void FFmpegDecode::start() {
             continue;
         }
 
-        if (audio->queue->getQueueSize() > 100) {
+        if (audio->queue->getQueueSize() > 10) {
             av_usleep(1000*100);
             continue;
         }
@@ -257,6 +257,7 @@ void FFmpegDecode::seek(int64_t secds) {
             audio->last_time = 0;
             pthread_mutex_lock(&seek_mutex);
             int64_t rel = secds * AV_TIME_BASE;
+            avcodec_flush_buffers(audio->avCodecContext);
             avformat_seek_file(pFortmatCtx, -1, INT64_MIN, rel, INT64_MAX, 0);
             pthread_mutex_unlock(&seek_mutex);
             playStatus->seek = false;

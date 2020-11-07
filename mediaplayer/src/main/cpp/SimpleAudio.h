@@ -78,6 +78,7 @@ public :
     uint8_t *out_buffer = NULL;
     bool finished =true;
     bool isRecordPcm=false;
+    bool readFrameFinished=true;
 
     SimpleAudio(PlayStatus *playStatus, int sample_rate, CallJava *callJava);
 
