@@ -14,6 +14,7 @@ import com.docwei.mediaplayer.listener.OnLoadListener;
 import com.docwei.mediaplayer.listener.OnPlayStatusListener;
 import com.docwei.mediaplayer.listener.OnPreparedListener;
 import com.docwei.mediaplayer.listener.OnTimeInfoListener;
+import com.docwei.mediaplayer.listener.OnTimeRecordListener;
 import com.docwei.mediaplayer.listener.OnVolumnDBListener;
 
 import java.io.File;
@@ -122,6 +123,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
+            }
+        });
+        mMusicPlayer.setOnTimeRecordListener(new OnTimeRecordListener() {
+            @Override
+            public void onTime(double time) {
+                Log.e("player","记录的时长--》"+time);
             }
         });
 

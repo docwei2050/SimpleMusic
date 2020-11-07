@@ -13,6 +13,7 @@ import com.docwei.mediaplayer.listener.OnLoadListener;
 import com.docwei.mediaplayer.listener.OnPlayStatusListener;
 import com.docwei.mediaplayer.listener.OnPreparedListener;
 import com.docwei.mediaplayer.listener.OnTimeInfoListener;
+import com.docwei.mediaplayer.listener.OnTimeRecordListener;
 import com.docwei.mediaplayer.listener.OnVolumnDBListener;
 
 import java.io.File;
@@ -44,12 +45,15 @@ public class MusicPlayer {
     private OnErrorListener mOnErrorListener;
     private OnCompleteListener mOnCompleteListener;
     private OnVolumnDBListener mOnVolumnDBListener;
+    private OnTimeRecordListener mOnTimeRecordListener;
     private boolean playNext = false;
     private int duration = -1;
     private int volumnPercent = 100;
     private int mute;
     private float speed;
     private float tune;
+    private double recordTime = 0;
+    private double sampleRate = 0;
 
     public MusicPlayer() {
 
@@ -85,6 +89,10 @@ public class MusicPlayer {
 
     public void setOnVolumnDBListener(OnVolumnDBListener onVolumnDBListener) {
         mOnVolumnDBListener = onVolumnDBListener;
+    }
+
+    public void setOnTimeRecordListener(OnTimeRecordListener onTimeRecordListener) {
+        mOnTimeRecordListener = onTimeRecordListener;
     }
 
     public void setVolumnPercent(int percent) {
@@ -259,7 +267,8 @@ public class MusicPlayer {
 
     public void startRecord(File outfile) {
         if (!initmediacodec) {
-            if (n_samplerate() > 0) {
+            sampleRate = n_samplerate();
+            if (sampleRate > 0) {
                 initmediacodec = true;
                 initMediacodec(n_samplerate(), outfile);
                 n_startstoprecord(true);
@@ -312,6 +321,7 @@ public class MusicPlayer {
                 Log.e("player", "craete encoder wrong");
                 return;
             }
+            recordTime = 0;
             encoder.configure(encoderFormat, null, null, MediaCodec.CONFIGURE_FLAG_ENCODE);
             outputStream = new FileOutputStream(outfile);
             encoder.start();
@@ -333,6 +343,10 @@ public class MusicPlayer {
             int index = encoder.dequeueOutputBuffer(info, 0);
             while (index >= 0) {
                 try {
+                    recordTime += size * 1.0 / (sampleRate * 2 * 16 / 8);
+                    if(mOnTimeRecordListener!=null){
+                        mOnTimeRecordListener.onTime(recordTime);
+                    }
                     perpcmsize = info.size + 7;
                     outByteBuffer = new byte[perpcmsize];
 
@@ -430,7 +444,7 @@ public class MusicPlayer {
             encoderFormat = null;
             info = null;
             initmediacodec = false;
-
+            recordTime = 0;
             Log.e("player", "录制完成...");
         } catch (IOException e) {
             e.printStackTrace();
