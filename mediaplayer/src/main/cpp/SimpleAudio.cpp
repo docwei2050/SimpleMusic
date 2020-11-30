@@ -35,6 +35,7 @@ int SimpleAudio::resampleAudio() {
                 playStatus->load = true;
                 calljava->onCallLoad(CHILD_THREAD, true);
             }
+            av_usleep(100 * 1000);
             continue;
         } else {
             if (playStatus->load) {
@@ -236,9 +237,8 @@ void SimpleAudio::initOpenSLES() {
 
     SLDataSource slDataSource = {&android_queue, &pcm};
     SLDataSink audioSnk = {&outputMix, NULL};
-    const SLInterfaceID ids[4] = {SL_IID_BUFFERQUEUE, SL_IID_EFFECTSEND, SL_IID_VOLUME,
-                                  SL_IID_MUTESOLO};
-    const SLboolean req[4] = {SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE};
+    const SLInterfaceID ids[5] = {SL_IID_BUFFERQUEUE, SL_IID_EFFECTSEND, SL_IID_VOLUME,SL_IID_MUTESOLO, SL_IID_PLAYBACKRATE};
+    const SLboolean req[5] = {SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE,SL_BOOLEAN_TRUE};
 
     result = (*engineEngine)->CreateAudioPlayer(engineEngine, &pcmPlayerObject, &slDataSource,
                                                 &audioSnk, 4, ids, req);

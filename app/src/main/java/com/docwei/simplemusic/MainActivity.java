@@ -15,6 +15,8 @@ import com.docwei.mediaplayer.listener.OnPlayStatusListener;
 import com.docwei.mediaplayer.listener.OnPreparedListener;
 import com.docwei.mediaplayer.listener.OnTimeInfoListener;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -120,9 +122,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void begin(View view) {
-        mMusicPlayer.setSource("http://mpge.5nd.com/2015/2015-11-26/69708/1.mp3");
-        //File file = new File("/storage/emulated/0/$MuMu共享文件夹/1.mp3");
-        // mMusicPlayer.setSource(file.getAbsolutePath());
+        //mMusicPlayer.setSource("http://jzvd.nathen.cn/video/4542c17b-170c25a8e14-0007-1823-c86-de200.mp4");
+        File file = new File("/storage/emulated/0/$MuMu共享文件夹/sss.mp4");
+         mMusicPlayer.setSource(file.getAbsolutePath());
         mMusicPlayer.prepared();
 
     }

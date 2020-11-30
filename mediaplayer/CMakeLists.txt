@@ -11,7 +11,8 @@ add_library(
         src/main/cpp/FFmpegDecode.cpp
         src/main/cpp/SimpleAudio.cpp
         src/main/cpp/SimpleQueue.cpp
-        src/main/cpp/PlayStatus.cpp)
+        src/main/cpp/PlayStatus.cpp
+        src/main/cpp/SimpleVideo.cpp)
 
 add_library(avcodec-57 SHARED IMPORTED)
 set_target_properties(avcodec-57

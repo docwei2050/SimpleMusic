@@ -67,5 +67,7 @@ void SimpleQueue::clearAvPacket() {
 }
 
 SimpleQueue::~SimpleQueue() {
-  clearAvPacket();
+    clearAvPacket();
+    pthread_mutex_destroy(&mutexPacket);
+    pthread_cond_destroy(&condPacket);
 }

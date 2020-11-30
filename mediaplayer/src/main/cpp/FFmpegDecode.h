@@ -11,6 +11,7 @@
 #include "pthread.h"
 #include "SimpleAudio.h"
 #include "PlayStatus.h"
+#include "SimpleVideo.h"
 
 extern "C" {
 #include <libavformat/avformat.h>
@@ -25,6 +26,7 @@ public:
     pthread_t decodeThread;
     AVFormatContext *pFortmatCtx = NULL;
     SimpleAudio *audio = NULL;
+    SimpleVideo *video=NULL;
     PlayStatus *playStatus = NULL;
     pthread_mutex_t init_mutex;
     bool exit=false;
@@ -51,6 +53,9 @@ public:
     void setVolumn(int percent);
 
     void setMute(int mute);
+
+    //这里会生成avCodecContext
+    int getCodecContext(AVCodecParameters * parameters,AVCodecContext **avCodecContext);
 };
 
 

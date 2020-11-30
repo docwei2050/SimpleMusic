@@ -19,6 +19,7 @@ extern "C" {
 extern "C" {
 #include <SLES/OpenSLES.h>
 #include <SLES/OpenSLES_Android.h>
+#include <libavutil/time.h>
 }
 
 
