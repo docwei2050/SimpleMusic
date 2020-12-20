@@ -14,6 +14,7 @@ import com.docwei.mediaplayer.listener.OnLoadListener;
 import com.docwei.mediaplayer.listener.OnPlayStatusListener;
 import com.docwei.mediaplayer.listener.OnPreparedListener;
 import com.docwei.mediaplayer.listener.OnTimeInfoListener;
+import com.docwei.mediaplayer.opengl.OriGlSurfaceView;
 
 import java.io.File;
 
@@ -27,11 +28,13 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTv_volumn;
     private SeekBar mSeekBar_volumn;
     private boolean isHandleSeekTime;
+    private OriGlSurfaceView mSurfaceView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mSurfaceView = findViewById(R.id.surface);
         mTv_time = findViewById(R.id.tv_time);
 
         mTv_time1 = findViewById(R.id.tv_time);
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         mMusicPlayer = new MusicPlayer();
+        mMusicPlayer.setOriGlSurfaceView(mSurfaceView);
         mMusicPlayer.setOnPreparedListener(new OnPreparedListener() {
             @Override
             public void onPrepared() {
@@ -124,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
     public void begin(View view) {
         //mMusicPlayer.setSource("http://jzvd.nathen.cn/video/4542c17b-170c25a8e14-0007-1823-c86-de200.mp4");
         File file = new File("/storage/emulated/0/$MuMu共享文件夹/sss.mp4");
-         mMusicPlayer.setSource(file.getAbsolutePath());
+        mMusicPlayer.setSource(file.getAbsolutePath());
         mMusicPlayer.prepared();
 
     }

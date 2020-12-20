@@ -10,6 +10,7 @@ import com.docwei.mediaplayer.listener.OnLoadListener;
 import com.docwei.mediaplayer.listener.OnPlayStatusListener;
 import com.docwei.mediaplayer.listener.OnPreparedListener;
 import com.docwei.mediaplayer.listener.OnTimeInfoListener;
+import com.docwei.mediaplayer.opengl.OriGlSurfaceView;
 
 /**
  * Created by liwk on 2020/9/9.
@@ -38,9 +39,13 @@ public class MusicPlayer {
     private int duration = -1;
     private int volumnPercent = 100;
     private int mute;
-
+    private OriGlSurfaceView mOriGlSurfaceView;
     public MusicPlayer() {
 
+    }
+
+    public void setOriGlSurfaceView(OriGlSurfaceView oriGlSurfaceView) {
+        mOriGlSurfaceView = oriGlSurfaceView;
     }
 
     public void setSource(String source) {
@@ -69,6 +74,10 @@ public class MusicPlayer {
 
     public void setOnCompleteListener(OnCompleteListener onCompleteListener) {
         mOnCompleteListener = onCompleteListener;
+    }
+
+    public OriGlSurfaceView getOriGlSurfaceView() {
+        return mOriGlSurfaceView;
     }
 
     public void setVolumnPercent(int percent) {
@@ -164,6 +173,11 @@ public class MusicPlayer {
         if (playNext) {
             playNext = false;
             prepared();
+        }
+    }
+    public void onCallRenderYUV(int width,int height,byte[] y,byte[] u,byte[] v){
+        if(mOriGlSurfaceView!=null){
+            mOriGlSurfaceView.setYUVData(width,height,y,u,v);
         }
     }
 
