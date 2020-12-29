@@ -18,6 +18,7 @@ extern "C" {
 #include "queue"
 #include "SimpleQueue.h"
 #include "CallJava.h"
+#include "SimpleAudio.h"
 
 class SimpleVideo {
 public:
@@ -29,6 +30,12 @@ public:
     CallJava *callJava = NULL;
     AVRational time_base;
     pthread_t thread_play;
+    SimpleAudio  *audio;
+    //因为有时候pts是0，所以要记录这个clock
+    double clock;
+    double delayTime;
+    //默认的延迟事件是基于fps来获取的，比如1s 25帧，那么就是0.04
+    double defaultDelayTime=0.04;
 public :
     SimpleVideo(PlayStatus *playStatus, CallJava *callJava);
 
@@ -37,6 +44,11 @@ public :
     void play();
 
     void release();
+
+    double getFrameDiffTime(AVFrame *avFrame);
+
+    //针对diff时间去调整延迟时间
+    double getDelayTime(double diff);
 };
 
 

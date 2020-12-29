@@ -82,6 +82,14 @@ void FFmpegDecode::decodeFFmpegThread() {
                 video->codecParameters = pFortmatCtx->streams[i]->codecpar;
                 video->time_base = pFortmatCtx->streams[i]->time_base;
 
+                //获取帧数
+                int num = pFortmatCtx->streams[i]->avg_frame_rate.num;
+                int den = pFortmatCtx->streams[i]->avg_frame_rate.den;
+                if (num != 0 && den != 0) {
+                    int fps = num / den;
+                    video->defaultDelayTime = 1.0 / fps;
+                }
+
             }
         }
     }
@@ -111,6 +119,9 @@ void FFmpegDecode::start() {
         callJava->onCallError(CHILD_THREAD, 1007, "audio is NULL");
         return;
     }
+
+    video->audio = audio;
+
     audio->play();
     video->play();
     int count = 0;

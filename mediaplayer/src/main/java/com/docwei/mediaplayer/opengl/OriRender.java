@@ -65,6 +65,7 @@ public class OriRender implements GLSurfaceView.Renderer {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         renderYUV();
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4);
     }
 
     private void initRenderYUV() {
@@ -97,6 +98,7 @@ public class OriRender implements GLSurfaceView.Renderer {
     }
 
     private void renderYUV() {
+        //有的帧以下数据不完整
         if (width_yuv > 0 && height_yuv > 0 && y != null && u != null && v != null) {
             GLES20.glUseProgram(program_yuv);
             GLES20.glEnableVertexAttribArray(avPosition_yuv);
@@ -124,7 +126,7 @@ public class OriRender implements GLSurfaceView.Renderer {
             y = null;
             u = null;
             v = null;
-            GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4);
+
         }
     }
 }
