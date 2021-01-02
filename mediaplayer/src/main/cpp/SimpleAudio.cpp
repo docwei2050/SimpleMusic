@@ -12,6 +12,7 @@ SimpleAudio::SimpleAudio(PlayStatus *playStatus, int sample_rate, CallJava *call
     this->playStatus = playStatus;
     queue = new SimpleQueue(playStatus);
     buffer = (uint8_t *) av_malloc(sample_rate * 2 * 2);
+    pthread_mutex_init(&codecMutex,NULL);
 }
 
 void *decodePlay(void *data) {
@@ -53,11 +54,13 @@ int SimpleAudio::resampleAudio() {
             continue;
         }
 
+        pthread_mutex_lock(&codecMutex);
         ret = avcodec_send_packet(avCodecContext, avPacket);
         if (ret != 0) {
             av_packet_free(&avPacket);
             av_free(avPacket);
             avPacket = NULL;
+            pthread_mutex_unlock(&codecMutex);
             continue;
         }
         avFrame = av_frame_alloc();
@@ -87,6 +90,7 @@ int SimpleAudio::resampleAudio() {
                 av_free(avFrame);
                 avFrame = NULL;
                 swr_free(&swrContext);
+                pthread_mutex_unlock(&codecMutex);
                 continue;
             }
             //重采样操作
@@ -109,6 +113,7 @@ int SimpleAudio::resampleAudio() {
             av_free(avFrame);
             avFrame = NULL;
             swr_free(&swrContext);
+            pthread_mutex_unlock(&codecMutex);
             break;
         } else {
             av_packet_free(&avPacket);
@@ -117,6 +122,7 @@ int SimpleAudio::resampleAudio() {
             av_frame_free(&avFrame);
             av_free(avFrame);
             avFrame = NULL;
+            pthread_mutex_unlock(&codecMutex);
             continue;
         }
 
@@ -320,9 +326,11 @@ void SimpleAudio::release() {
         buffer = NULL;
     }
     if (avCodecContext != NULL) {
+        pthread_mutex_lock(&codecMutex);
         avcodec_close(avCodecContext);
         avcodec_free_context(&avCodecContext);
         avCodecContext = NULL;
+        pthread_mutex_unlock(&codecMutex);
     }
     if (playStatus != NULL) {
         playStatus = NULL;
@@ -335,7 +343,7 @@ void SimpleAudio::release() {
 }
 
 SimpleAudio::~SimpleAudio() {
-
+    pthread_mutex_destroy(&codecMutex);
 }
 
 void SimpleAudio::setVolumn(int percent) {

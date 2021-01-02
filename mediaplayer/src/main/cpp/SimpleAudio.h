@@ -49,6 +49,8 @@ public :
     int volumnPercent=100;
     int mute=2;
 
+    pthread_mutex_t codecMutex;
+
     //引擎接口
     SLObjectItf engineObject = NULL;
     SLEngineItf engineEngine = NULL;

@@ -8,16 +8,22 @@ SimpleVideo::SimpleVideo(PlayStatus *playStatus, CallJava *callJava) {
     this->playStatus = playStatus;
     this->callJava = callJava;
     queue = new SimpleQueue(playStatus);
+    pthread_mutex_init(&codecMutex,NULL);
 }
 
 SimpleVideo::~SimpleVideo() {
-
+   pthread_mutex_destroy(&codecMutex);
 }
 
 void *playVideo(void *data) {
     SimpleVideo *video = static_cast<SimpleVideo *>(data);
     while (video->playStatus != NULL && !video->playStatus->exit) {
         if (video->playStatus->seek) {
+            av_usleep(100 * 1000);
+            continue;
+        }
+        //添加暂停功能
+        if(video->playStatus->pause){
             av_usleep(100 * 1000);
             continue;
         }
@@ -41,10 +47,14 @@ void *playVideo(void *data) {
             avPacket = NULL;
             continue;
         }
+
+        //此处用到avCodec解码就加一个线程锁
+        pthread_mutex_lock(&video->codecMutex);
         if (avcodec_send_packet(video->avCodecContext, avPacket) != 0) {
             av_packet_free(&avPacket);
             av_free(avPacket);
             avPacket = NULL;
+            pthread_mutex_unlock(&video->codecMutex);
             continue;
         }
         AVFrame *avFrame = av_frame_alloc();
@@ -55,6 +65,7 @@ void *playVideo(void *data) {
             av_packet_free(&avPacket);
             av_free(avPacket);
             avPacket = NULL;
+            pthread_mutex_unlock(&video->codecMutex);
             continue;
         }
 
@@ -64,10 +75,14 @@ void *playVideo(void *data) {
 
             double diff = video->getFrameDiffTime(avFrame);
             LOGE("需要休眠的时间--》%f", video->getDelayTime(diff))
-            av_usleep(video->getDelayTime(diff)*1000000);
+            av_usleep(video->getDelayTime(diff) * 1000000);
             //渲染调用的代码 宽度使用video->avCodecContext->width会出现花屏
-            video->callJava->onCallRenderYUV(avFrame->linesize[0], video->avCodecContext->height,
-                                             avFrame->data[0], avFrame->data[1], avFrame->data[2]);
+            if (video->callJava != NULL) {
+                video->callJava->onCallRenderYUV(avFrame->linesize[0],
+                                                 video->avCodecContext->height,
+                                                 avFrame->data[0], avFrame->data[1],
+                                                 avFrame->data[2]);
+            }
         } else {
             LOGE("当前视频不是YUV420P需要转换成YUV420P")
             AVFrame *pFrameYUV420P = av_frame_alloc();
@@ -91,13 +106,19 @@ void *playVideo(void *data) {
                 av_frame_free(&pFrameYUV420P);
                 av_free(pFrameYUV420P);
                 av_free(buffer);
+                pthread_mutex_unlock(&video->codecMutex);
                 continue;
             }
             sws_scale(swsContext, reinterpret_cast<const uint8_t *const * >(avFrame->data),
                       avFrame->linesize, 0, avFrame->height, pFrameYUV420P->data,
                       pFrameYUV420P->linesize);
+
+
+            double diff = video->getFrameDiffTime(pFrameYUV420P);
+            LOGE("需要休眠的时间--》%f", video->getDelayTime(diff))
+            av_usleep(video->getDelayTime(diff)*1000000);
             //渲染调用的代码 宽度使用video->avCodecContext->width会出现花屏
-            video->callJava->onCallRenderYUV(avFrame->linesize[0], video->avCodecContext->height,
+            video->callJava->onCallRenderYUV(pFrameYUV420P->linesize[0], video->avCodecContext->height,
                                              pFrameYUV420P->data[0], pFrameYUV420P->data[1],
                                              pFrameYUV420P->data[2]);
 
@@ -115,6 +136,7 @@ void *playVideo(void *data) {
         av_packet_free(&avPacket);
         av_free(avPacket);
         avPacket = NULL;
+        pthread_mutex_unlock(&video->codecMutex);
     }
 
     pthread_exit(&video->thread_play);
@@ -136,9 +158,11 @@ void SimpleVideo::release() {
         playStatus = NULL;
     }
     if (avCodecContext != NULL) {
+        pthread_mutex_lock(&codecMutex);
         avcodec_close(avCodecContext);
         avcodec_free_context(&avCodecContext);
         avCodecContext = NULL;
+        pthread_mutex_unlock(&codecMutex);
     }
 }
 

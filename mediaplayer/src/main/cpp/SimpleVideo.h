@@ -36,6 +36,8 @@ public:
     double delayTime;
     //默认的延迟事件是基于fps来获取的，比如1s 25帧，那么就是0.04
     double defaultDelayTime=0.04;
+
+    pthread_mutex_t  codecMutex;
 public :
     SimpleVideo(PlayStatus *playStatus, CallJava *callJava);
 

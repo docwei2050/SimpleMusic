@@ -161,7 +161,10 @@ void FFmpegDecode::start() {
                     av_usleep(100 * 1000);
                     continue;
                 } else {
-                    playStatus->exit = true;
+                    if (!playStatus->seek) {
+                        //seek时会清空buffer
+                        playStatus->exit = true;
+                    }
                     break;
                 }
             }
@@ -175,12 +178,18 @@ void FFmpegDecode::start() {
 }
 
 void FFmpegDecode::pause() {
+    if(playStatus!=NULL){
+        playStatus->pause=true;
+    }
     if (audio != NULL) {
         audio->pause();
     }
 }
 
 void FFmpegDecode::resume() {
+    if(playStatus!=NULL){
+        playStatus->pause=false;
+    }
     if (audio != NULL) {
         audio->resume();
     }
@@ -204,6 +213,7 @@ void FFmpegDecode::release() {
         delete (audio);
         audio = NULL;
     }
+    LOGE("开始释放video")
     if (video != NULL) {
         video->release();
         delete (video);
@@ -215,12 +225,15 @@ void FFmpegDecode::release() {
         avformat_free_context(pFortmatCtx);
         pFortmatCtx = NULL;
     }
+    LOGE("开始释放callJava")
     if (callJava != NULL) {
         callJava = NULL;
     }
+    LOGE("开始释放playStatus")
     if (playStatus != NULL) {
         playStatus = NULL;
     }
+    LOGE("开始释放init_mutex")
     pthread_mutex_unlock(&init_mutex);
 }
 
@@ -235,19 +248,32 @@ void FFmpegDecode::seek(int64_t seconds) {
         return;
     }
     if (seconds > 0 && seconds <= duration) {
+        playStatus->seek = true;
+        //读取avpacket也用到了avFormatContext所以加锁
+        pthread_mutex_lock(&seek_mutex);
+        int64_t rel = seconds * AV_TIME_BASE;
+        avformat_seek_file(pFortmatCtx, -1, INT64_MIN, rel, INT_FAST64_MAX, 0);
         if (audio != NULL) {
-            playStatus->seek = true;
+
             audio->queue->clearAvPacket();
             audio->clock = 0;
             audio->last_time = 0;
-            //读取avpacket也用到了avFormatContext所以加锁
-            pthread_mutex_lock(&seek_mutex);
-            int64_t rel = seconds * AV_TIME_BASE;
-            avformat_seek_file(pFortmatCtx, -1, INT64_MIN, rel, INT_FAST64_MAX, 0);
-            pthread_mutex_unlock(&seek_mutex);
-            playStatus->seek = false;
+            pthread_mutex_lock(&audio->codecMutex);
+            avcodec_flush_buffers(audio->avCodecContext);
+            pthread_mutex_unlock(&audio->codecMutex);
+
         }
+        if(video!=NULL){
+            video->queue->clearAvPacket();
+            video->clock=0;
+            pthread_mutex_lock(&video->codecMutex);
+            avcodec_flush_buffers(video->avCodecContext);
+            pthread_mutex_unlock(&video->codecMutex);
+        }
+        pthread_mutex_unlock(&seek_mutex);
+        playStatus->seek = false;
     }
+
 
 }
 
