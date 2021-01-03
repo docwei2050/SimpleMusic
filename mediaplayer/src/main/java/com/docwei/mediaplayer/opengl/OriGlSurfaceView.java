@@ -20,6 +20,13 @@ public class OriGlSurfaceView extends GLSurfaceView {
         mOriRender = new OriRender(getContext());
         setRenderer(mOriRender);
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+
+        mOriRender.setOnRenderListener(new OriRender.OnRenderListener() {
+            @Override
+            public void onRender() {
+                requestRender();
+            }
+        });
     }
 
     public void setYUVData(int width, int height, byte[] y, byte[] u, byte[] v) {
@@ -29,4 +36,7 @@ public class OriGlSurfaceView extends GLSurfaceView {
         }
     }
 
+    public OriRender getOriRender() {
+        return mOriRender;
+    }
 }

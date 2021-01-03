@@ -33,6 +33,11 @@ public:
     int duration=0;
     pthread_mutex_t  seek_mutex;
 
+    bool isSupportMediaCodec=false;
+
+    //给avPacket添加头信息方便MedieCodec去解析
+    const AVBitStreamFilter  *bitStreamFilter=NULL;
+
 public:
     FFmpegDecode(PlayStatus *playStatus, CallJava *callJava, const char *url);
 

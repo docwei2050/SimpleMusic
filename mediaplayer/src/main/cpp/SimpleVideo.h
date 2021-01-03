@@ -5,6 +5,8 @@
 #ifndef SIMPLEMUSIC_SIMPLEVIDEO_H
 #define SIMPLEMUSIC_SIMPLEVIDEO_H
 
+#define CODEC_YUV 0
+#define CODEC_MEDIACODEC 1
 
 extern "C" {
 #include <libavcodec/avcodec.h>
@@ -38,6 +40,11 @@ public:
     double defaultDelayTime=0.04;
 
     pthread_mutex_t  codecMutex;
+    //默认硬解码
+    int codecType=CODEC_YUV;
+
+    AVBSFContext  *abs_ctx=NULL;
+
 public :
     SimpleVideo(PlayStatus *playStatus, CallJava *callJava);
 
@@ -47,7 +54,7 @@ public :
 
     void release();
 
-    double getFrameDiffTime(AVFrame *avFrame);
+    double getFrameDiffTime(AVFrame *avFrame,AVPacket *avPacket);
 
     //针对diff时间去调整延迟时间
     double getDelayTime(double diff);
