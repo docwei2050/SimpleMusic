@@ -18,11 +18,13 @@ SimpleAudio::SimpleAudio(PlayStatus *playStatus, int sample_rate, CallJava *call
 void *decodePlay(void *data) {
     SimpleAudio *audio = (SimpleAudio *) data;
     audio->initOpenSLES();
-    pthread_exit(&audio->thread_play);
+    return 0;
 }
 
 void SimpleAudio::play() {
-    pthread_create(&thread_play, NULL, decodePlay, this);
+    if (playStatus != NULL && !playStatus->exit) {
+        pthread_create(&thread_play, NULL, decodePlay, this);
+    }
 }
 
 
@@ -300,6 +302,10 @@ void SimpleAudio::stop() {
 }
 
 void SimpleAudio::release() {
+    if(queue!=NULL){
+        queue->noticeQueue();
+    }
+    pthread_join(thread_play,NULL);
     stop();
     if (queue != NULL) {
         delete (queue);

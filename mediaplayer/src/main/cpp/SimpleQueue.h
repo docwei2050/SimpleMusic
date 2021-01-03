@@ -31,6 +31,8 @@ public:
 
     //释放资源
     void clearAvPacket();
+
+    void noticeQueue();
 };
 
 

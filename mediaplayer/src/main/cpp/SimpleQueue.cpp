@@ -71,3 +71,7 @@ SimpleQueue::~SimpleQueue() {
     pthread_mutex_destroy(&mutexPacket);
     pthread_cond_destroy(&condPacket);
 }
+
+void SimpleQueue::noticeQueue() {
+   pthread_cond_signal(&condPacket);
+}

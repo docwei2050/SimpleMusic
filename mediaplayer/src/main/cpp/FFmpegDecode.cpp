@@ -19,7 +19,7 @@ FFmpegDecode::FFmpegDecode(PlayStatus *playStatus, CallJava *callJava, const cha
 void *decodeFF(void *data) {
     FFmpegDecode *fFmpegDecode = (FFmpegDecode *) data;
     fFmpegDecode->decodeFFmpegThread();
-    pthread_exit(&fFmpegDecode->decodeThread);
+    return 0;
 }
 
 void FFmpegDecode::prepared() {
@@ -239,6 +239,7 @@ void FFmpegDecode::resume() {
 void FFmpegDecode::release() {
     LOGE("开始释放ffmpeg")
     playStatus->exit = true;
+    pthread_join(decodeThread,NULL);
     pthread_mutex_lock(&init_mutex);
     int sleepCount = 0;
     while (!exit) {
