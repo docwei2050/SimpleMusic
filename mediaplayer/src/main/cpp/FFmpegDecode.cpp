@@ -36,8 +36,6 @@ int avformat_callback(void *ctx) {
 
 void FFmpegDecode::decodeFFmpegThread() {
     pthread_mutex_lock(&init_mutex);
-
-    av_register_all();
     avformat_network_init();
     pFortmatCtx = avformat_alloc_context();
 
