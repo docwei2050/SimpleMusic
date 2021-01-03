@@ -25,14 +25,14 @@ import java.nio.ByteBuffer;
 public class MusicPlayer {
     static {
         System.loadLibrary("native-lib");
-        System.loadLibrary("avcodec-57");
-        System.loadLibrary("avdevice-57");
-        System.loadLibrary("avfilter-6");
-        System.loadLibrary("avformat-57");
-        System.loadLibrary("avutil-55");
-        System.loadLibrary("postproc-54");
-        System.loadLibrary("swresample-2");
-        System.loadLibrary("swscale-4");
+        System.loadLibrary("avcodec-58");
+        System.loadLibrary("avdevice-58");
+        System.loadLibrary("avfilter-7");
+        System.loadLibrary("avformat-58");
+        System.loadLibrary("avutil-56");
+        System.loadLibrary("postproc-55");
+        System.loadLibrary("swresample-3");
+        System.loadLibrary("swscale-5");
     }
 
     private String source;

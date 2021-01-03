@@ -151,6 +151,7 @@ void FFmpegDecode::start() {
         video->abs_ctx->time_base_in = video->time_base;
     }
     end:
+    isSupportMediaCodec=false;
     if(isSupportMediaCodec){
         video->codecType = CODEC_MEDIACODEC;
         video->callJava->onCallInitMediacodec(
